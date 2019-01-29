@@ -1,0 +1,573 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/live.css" >
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Hello, world!</title><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+
+<body>
+<%if(username==""){%>
+  <!-- The Modal login-->
+  <div id="login" class="modalLog modal" style="position:">
+
+    <!-- Modal content -->
+    <div class="modal-header" style="padding-top:0px !important;padding-bottom:0px !important;">
+
+        <h6 class="modal-title" style="color:black;padding:10px 100px 10px 100px;text-align:center;">Login</h6>
+
+        <span class="closeL close" style="margin:0">&times;</span>
+
+
+   </div>
+    <div class="modal-content loginModal" style="background: #f7f7f7;/*box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;*/">
+
+
+      <div class="logForm">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" > <i class="fas fa-user"></i></span>
+          </div>
+          <input type="text" class="form-control inputForm mailLog" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+          </div>
+          <input type="password" class="form-control inputForm passwordLog" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="form-check">
+          <input type="checkbox"  class="form-check-input checkLog" id="exampleCheck1">
+          <label class="form-check-label " for="exampleCheck1" style="font-size:12px; color:grey">Check me out</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary formLogBtn" style="float:right">Login</button>
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- The Modal login-->
+    <div id="register" class="modal modalReg">
+
+      <!-- Modal content -->
+      <div class="modal-header" style="padding-top:0px !important;padding-bottom:0px !important;">
+
+          <h6 class="modal-title" style="text-align: center;color:black;padding:10px 20px 10px 10px !important;text-align:center;">Create an account</h6>
+
+          <span class="closeR close" style="margin:0">&times;</span>
+
+
+     </div>
+      <div class="modal-content registerModal" style="background: #f7f7f7;/*box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;*/">
+
+        <div class="logForm" >
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" > <i class="fas fa-at"></i></span>
+            </div>
+            <input type="text" class="form-control inputForm mailReg" placeholder="Mail address" aria-label="Username" name="mail" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control inputForm passwordReg" name="password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control inputForm passwordRegConfirm" placeholder="Confirm password" aria-label="Username" aria-describedby="basic-addon1">
+
+          </div>
+          <p id='message'></p>
+          <button type="submit" class="btn btn-primary formRegBtn" style="float:right">Register</button>
+        </div>
+      </div>
+
+    </div>
+  <%}else{%>
+    <div id="login" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content loginModal" style="box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;">
+        <span class="closeL close" style="margin:10px">&times;</span>
+
+        <div class="logForm">
+          <h4>Account info</h4>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" > <i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control inputForm mailLog" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control inputForm passwordLog" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="form-check">
+            <input type="checkbox"  class="form-check-input checkLog" id="exampleCheck1" checked>
+            <label class="form-check-label " for="exampleCheck1" style="font-size:12px">Check me out</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary formLogBtn">Login</button>
+        </div>
+      </div>
+
+    </div>
+    <%}%>
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left " style="width: 80%;background:#30415d;color:white;box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-right:#031424 solid 2px" id="mySidebar" >
+  <button class="w3-bar-item w3-button w3-large w3-hide-large closeButtonLeftMenu" style="" onclick="w3_close()"><span style="margin-right: 10px;">Close &times;</span></button>
+  <%if(username==""){%>
+    <ul style="list-style:none;display:block;padding:0">
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="loginBtn" style=""><i class="fas fa-sign-in-alt" style="margin-right:20px;font-size:20px"></i> Login</button></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button " id="regBtn" style="s"><i class="fas fa-registered" style="margin-right:20px;font-size:20px"></i> Register</button></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:18px;font-size:20px"></i> Home</a></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/liveBetting" style=""><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> <span style="">Info</span></a></li>
+
+    </ul>
+
+
+
+    <%}else{%>
+      <ul style="list-style:none;display:block;padding:0">
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:20px;font-size:20px;width:20px;margin-right:25px;margin-left:3px"></i><%= username%></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px;font-size:20px"></i> Info</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:20px;font-size:20px"></i> Quit</button></li>
+
+      </ul>
+
+       <!-- The Modal login-->
+
+      <%}%>
+
+
+</div>
+
+<div class="w3-main " >
+  <div class="sticky-top ss align-self-start" id="removeSticky">
+<div class="" style="background-color:#30415d !important">
+
+    <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()" style="color:white !important;background-color:#30415d !important;padding:4px 16px 4px 16px !important;">&#9776;</button>
+    <h3 class="navbar-brand" href="/" style="margin-left:90px;color:white">TrufLive</h3>
+    <div class="userInfo">
+      <% if(username!=""){%>
+        <p class= "" style="position:absolute;top:10px;right:10px;color:white;font-size:14px" >Your balance :<br> <span style="margin-left:15px" class="moneyUser"><%= money%><span>$</p>
+
+
+      </div>
+      </div>
+      <div class="" style="background:#AB987A;padding-top:2px"></div>
+      <div class="container-fluid " style="">
+
+
+        <div class="row" style="background:#30415d;height:55px!important;">
+          <div class="col-1 col-sm-1 col-md-1" >
+          </div>
+          <div class="col-5 col-sm-5 col-md-5" style="text-align:center;padding:10px;color:white">
+
+            Bank of race:<br> <span class="moneyTotalBank"><%= totalBank %></span> $
+          </div>
+          <div class="col-5 col-sm-5 col-md-5" style="text-align:center;padding:10px;color:white">
+            <div class="input-group mb-3">
+              <input type="number" class="form-control inputForm stakeInsered" placeholder="Insert Stake" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="col-1 col-sm-1 col-md-1" >
+          </div>
+        </div>
+      </div>
+<%}else{%>
+  <button class="w3-bar-item w3-button " id="signIn" style="background:none;border:none;color:white;font-size:14px; position:absolute;right:1px;top:10px;"><i class="fas fa-key" style="font-size:20px;color:"></i> </button>
+
+      </div>
+      </div>
+      <div class=""style="background:#AB987A;padding-top:2px"></div>
+      <div class="container-fluid " style="">
+        <div class="row"  style="background-color:#30415d !important;height:80px;position:relative;padding:0 !important;">
+          <div class="col-6 col-sm-6 col-md-6">
+            <button type="button" class="btn btn-primary registerQuickButton" >Register</button>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6">
+            <button type="button" class="btn btn-primary loginQuickButton" >Login</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12" style="background:#AB987A;padding-top:2px">
+
+          </div>
+        </div>
+        <div class="row" style="background:#30415d;height:55px!important;">
+          <div class="col-1 col-sm-1 col-md-1" >
+          </div>
+          <div class="col-5 col-sm-5 col-md-5" style="text-align:center;padding:10px;color:white">
+
+            Bank of race:<br> <span class="moneyTotalBank"><%= totalBank %></span> $
+          </div>
+          <div class="col-5 col-sm-5 col-md-5" style="text-align:center;padding:10px;color:white">
+            <div class="input-group mb-3">
+              <input type="number" class="form-control inputForm stakeInsered" placeholder="Insert Stake" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="col-1 col-sm-1 col-md-1" >
+          </div>
+        </div>
+      </div>
+<%}%>
+</div>
+
+<div class="container-fluid" style="background:white;">
+  <div class="row" style="background:#373737;color:white">
+    <div class="col-12 col-sm-12 col-md-12" style="padding: 15px"><img src="./img/en.jpg" alt="flag" width="20" height="18" style="margin-right:15px"><span style="position:relative;top:2px"><%= country%></span>
+      <span style="float:right">
+        <button type="button" class="btn " data-container="body" data-toggle="popover" data-placement="top" data-content="<%=comment%>" style="color:white;font-size:17px;padding:0">
+  <i class="fas fa-info-circle" ></i>
+</button>
+
+
+       <%=stadium%> <%= time%></span></div>
+  </div>
+
+  <div class="row" style="background:#373737;color:white;padding-bottom:15px">
+    <div class="col-3 col-sm-3 col-md-3">
+
+    </div>
+    <div class="col-6 col-sm-6 col-md-6">
+      <div class="tming">
+        <%if(minutes!=null){%>
+          <div class="matchInfoTime">
+            <p style="font-size:16px;text-align:center;margin-bottom:0">Match ends in:</p>
+            <p style="text-align:center;margin-bottom:0"><span class="minutes"><%=minutes%></span> : <span class="seconds"><%=seconds%></span></p>
+          </div>
+        <%}else{%>
+          <p style="font-size:16px;text-align:center;margin-bottom:0">Match starts at:</p>
+          <p style="text-align:center;margin-bottom:0"><%=time%></p>
+        <%}%>
+      </div>
+    </div>
+    <div class="col-3 col-sm-3 col-md-3">
+
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12" style="margin-top:15px;margin-bottom: 15px;;padding:0;overflow-y:hidden !important;overflow-x:scroll;display:flex">
+
+
+         <ul style="list-style:none;display:flex;margin:0;padding:0;">
+            <%for (var i=0;i<arrayNextRaces.length;i++){%>
+
+              <%if(i==0){%>
+              <li class="nextRace0" style=""><a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 12px;"><%=i+1%>&#x2686;<br><%=arrayNextRaces[i].ora%></a></li>
+              <%}else{%>
+              <li class="nextRace" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 12px;"><%=i+1%>^<br><%=arrayNextRaces[i].ora%></a></li>
+
+                <%}%>
+            <%}%>
+          </ul>
+
+    </div>
+  </div>
+
+
+
+
+
+  <div class="row">
+    <div class="col-sm-11" style="padding:0">
+        <!-- table with horses -->
+
+        <div class="tableHorses" style="margin-top: 0">
+          <table class="table tableHorsesLive" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <thead>
+              <tr style="text-align: center;">
+                <th>#</th>
+                <th>Racer  <span style="margin-left:50px">MoneyBetted</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="horsesTbody">
+        <%if(betMoneyOnHorse!=null){%>
+          <% for(var i=0;i<betMoneyOnHorse.length;i++){ %>
+                <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse-<%=betMoneyOnHorse[i].name%>">
+                  <td style="width:13%;margin-left:40px;">
+                    <div class="row" style="">
+                      <div class="col-sm-12 col-12 col-xm-12" style="padding-right:0"><p style="margin:0;"><%= betMoneyOnHorse[i].steccato%> <%= betMoneyOnHorse[i].draw_label%></p></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-12 col-xm-12"><img src="/img/<%= betMoneyOnHorse[i].img%>" style="width:100%"></div>
+                    </div>
+                  </td>
+
+                  <td style="width:65%">
+
+                    <div class="row">
+                      <div class="col-12 col-sm-12 col-xm-12"><b><%=betMoneyOnHorse[i].horseName%></b></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-5 col-sm-5 col-xm-5" style="font-size:9px;padding-right:0;">
+
+
+                        <div class="row">
+                          <div class="col-12 col-sm-12 col-xm-12" style="font-size:9px">T:<%=betMoneyOnHorse[i].trainer%></div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-sm-12 col-xm-12" style="font-size:9px">J:<%=betMoneyOnHorse[i].jockey%></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-sm-12 col-xm-12" style="font-size:9px"> age: <%=betMoneyOnHorse[i].age%> w: <%=betMoneyOnHorse[i].weight%></div>
+                        </div>
+
+                      </div>
+                        <div class="col-7 col-sm-7 col-xm-7" style="padding:0">
+                          <%if(betMoneyOnHorse!=null){%>
+                          <!--<div class="row">
+                              <div class="col-12 col-sm-12 col-xm-12"><div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div></div>
+                            </div>-->
+                            <div class="row" >
+                              <% if(betMoneyOnHorse[i].betMoneyTotal==0){%>
+                                  <div class="col-12 col-sm-12 col-xm-12" >
+
+                                    <div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot" style="position:relative;top:-12px;left:50%"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div>
+                                    <div class="" style="position: relative;top:-10px;left:-7px;background:#f7f7f7;width:175px;height:12px;padding:0;margin-right: 20px;border:1px solid #e5e3e3;border-radius:10px">
+                                    <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:0px ;"></div>
+                                  </div>
+                                  </div>
+                                <%}else{%>
+                                  <div class="col-12 col-sm-12 col-xm-12" >
+                                    <div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot" style="position:relative;top:-12px;left:50%"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div>
+                                    <div class="" style="position: relative;top:-10px;left:-7px;background:#f7f7f7;width:175px;height:12px;padding:0;margin-right: 30px;border:1px solid #e5e3e3;border-radius:10px">
+                                      <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:<%= parseInt((parseInt(betMoneyOnHorse[i].betMoneyTotal)/totalBank*100))*175/100 %>px ;"></div>
+                                    </div>
+                                  </div>
+                                <%}%>
+
+                            </div>
+                          <%}else{%>
+                            <div class="row">
+                              <div class="col-12 col-sm-12 col-xm-12"><div class="moneyTot moneyTot">0 $</div></div>
+                            </div>
+                            <div class="row" >
+
+                                  <div class="col-12 col-sm-12 col-xm-12" style="background:#f7f7f7;width:175px;height:12px;padding-left:0;margin-left: 10px;margin-right: 20px;border:1px solid #e5e3e3;border-radius:10px">
+                                    <div class="line " style="width:0px !important;"></div>
+                                  </div>
+
+                            </div>
+                          <%}%>
+
+
+                        </div>
+                    </div>
+
+
+
+                  </td>
+                  <td>
+                    <%if(betMoneyOnHorse!=null){%>
+                      <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                    <%}else{%>
+                      <button type="button" class="btn btn-primary betButton "  style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+
+                    <%}%>
+
+                   </td>
+                </tr>
+            <% } %>
+            <%}else{%>
+
+
+            <% for(var i=0;i<jsonDataFirstLiveMatch.length;i++){ %>
+                  <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse-<%=jsonDataFirstLiveMatch[i].name%>">
+                    <td style="width:13%;margin-left:40px;">
+                      <div class="row" style="">
+                        <div class="col-sm-12 col-12 col-xm-12" style="padding-right:0"><p style="margin:0;"><%= jsonDataFirstLiveMatch[i].steccato%> <%= jsonDataFirstLiveMatch[i].draw_label%></p></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 col-12 col-xm-12"><img src="/img/<%= jsonDataFirstLiveMatch[i].img%>" style="width:100%"></div>
+                      </div>
+                    </td>
+
+                    <td style="width:65%">
+
+                      <div class="row">
+                        <div class="col-12 col-sm-12 col-xm-12"><b><%=jsonDataFirstLiveMatch[i].horseName%></b></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-5 col-sm-5 col-xm-5" style="font-size:9px;padding-right:0;">
+
+                          <!--T:<%=jsonDataFirstLiveMatch[i].trainer%>-->
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-xm-12" style="font-size:9px">T:<%=jsonDataFirstLiveMatch[i].trainer%></div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-xm-12" style="font-size:9px">J:<%=jsonDataFirstLiveMatch[i].jockey%></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-xm-12" style="font-size:9px"> age: <%=jsonDataFirstLiveMatch[i].age%> w: <%=jsonDataFirstLiveMatch[i].weight%></div>
+                          </div>
+
+                        </div>
+                          <div class="col-7 col-sm-7 col-xm-7" style="padding:0">
+                            <%if(betMoneyOnHorse!=null){%>
+                              <div class="row">
+                                <div class="col-12 col-sm-12 col-xm-12"><div class="moneyTot_<%=betMoneyOnHorse.horses[i].name%> moneyTot"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div></div>
+                              </div>
+                              <div class="row" >
+                                <% if(betMoneyOnHorse[i].betMoneyTotal==0){%>
+                                    <div class="col-12 col-sm-12 col-xm-12" style="background:#f7f7f7;width:175px;height:12px;padding:0;margin-left: 10px;margin-right: 20px;border:1px solid #e5e3e3;border-radius:10px"><div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:0px !important;"></div></div>
+                                  <%}else{%>
+                                    <div class="col-12 col-sm-12 col-xm-12" style="background:#f7f7f7;width:175px;height:12px;padding:0;margin-left: 10px;margin-right: 20px;border:1px solid #e5e3e3;border-radius:10px">
+                                      <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:<%= parseInt((parseInt(betMoneyOnHorse[i].betMoneyTotal)/totalBank*100))*175/100 %>px !important;"></div>
+                                    </div>
+                                  <%}%>
+
+                              </div>
+                            <%}else{%>
+                              <div class="row">
+                                <div class="col-12 col-sm-12 col-xm-12"><div class="moneyTot moneyTot">0 $</div></div>
+                              </div>
+                              <div class="row" >
+
+                                    <div class="col-12 col-sm-12 col-xm-12" style="background:#f7f7f7;width:175px;height:12px;padding-left:0;margin-left: 10px;margin-right: 20px;border:1px solid #e5e3e3;border-radius:10px">
+                                      <div class="line " style="width:0px !important;"></div>
+                                    </div>
+
+                              </div>
+                            <%}%>
+
+
+                          </div>
+                      </div>
+
+
+
+                    </td>
+                    <td>
+                      <%if(betMoneyOnHorse!=null){%>
+                        <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:15px;">BET</button>
+                      <%}else{%>
+                        <button type="button" class="btn btn-primary betButton "  style="margin:0;margin-left:35px;margin-top:15px;">BET</button>
+
+                      <%}%>
+
+                     </td>
+                  </tr>
+              <% } %>
+
+            <%}%>
+          </tbody>
+        </table>
+        </div>
+        <!-- end table with horses -->
+    </div>
+    <div class="col-sm-1"></div>
+
+  </div>
+</div>
+</div>
+
+
+
+
+<script>
+function w3_open() {
+  $('#mySidebar').css('display','block');
+  $('#removeSticky').removeClass('sticky-top');
+//  document.getElementById("mySidebar").style.display = "block";
+//  document.getElementById("removeSticky").class ="";
+}
+
+function w3_close() {
+  $('#mySidebar').css('display','none');
+  $('#removeSticky').addClass('sticky-top');
+  //document.getElementById("mySidebar").style.display = "none";
+//  document.getElementById("removeSticky").class ="sticky-top";
+}
+
+// Get the modal
+var modaR = document.getElementById('register');
+
+// Get the button that opens the modal
+var btnR = document.getElementById("regBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("closeR")[0];
+
+// When the user clicks on the button, open the modal
+btnR.onclick = function() {
+  modaR.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modaR.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modaRr) {
+    modaR.style.display = "none";
+  }
+}
+
+
+// Get the modal
+var modaL = document.getElementById('login');
+
+// Get the button that opens the modal
+var btnL = document.getElementById("loginBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("closeL")[0];
+
+// When the user clicks on the button, open the modal
+btnL.onclick = function() {
+  modaL.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modaL.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modaL) {
+    modaL.style.display = "none";
+  }
+}
+</script>
+
+<script>
+
+
+</script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/live.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script></body>
+</html>

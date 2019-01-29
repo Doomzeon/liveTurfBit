@@ -1,0 +1,284 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/live.css" >
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Hello, world!</title><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+
+<body>
+
+       <!-- The Modal login-->
+       <div id="login" class="modalLog modal">
+
+         <!-- Modal content -->
+         <div class="modal-header" style="padding-top:0px !important;padding-bottom:0px !important;">
+
+             <h6 class="modal-title" style="color:black;padding:10px 100px 10px 100px;text-align:center;">Login</h6>
+
+             <span class="closeL close" style="margin:0">&times;</span>
+
+
+        </div>
+         <div class="modal-content loginModal" style="background: #f7f7f7;/*box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;*/">
+
+
+           <div class="logForm">
+             <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1" > <i class="fas fa-user"></i></span>
+               </div>
+               <input type="text" class="form-control inputForm mailLog" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+             </div>
+             <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                 <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+               </div>
+               <input type="password" class="form-control inputForm passwordLog" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+             </div>
+             <div class="form-check">
+               <input type="checkbox"  class="form-check-input checkLog" id="exampleCheck1">
+               <label class="form-check-label " for="exampleCheck1" style="font-size:12px; color:grey">Check me out</label>
+             </div>
+
+             <button type="submit" class="btn btn-primary formLogBtn" style="float:right">Login</button>
+           </div>
+         </div>
+
+       </div>
+
+
+         <!-- The Modal login-->
+         <div id="register" class="modal modalReg">
+
+           <!-- Modal content -->
+           <div class="modal-header" style="padding-top:0px !important;padding-bottom:0px !important;">
+
+               <h6 class="modal-title" style="text-align: center;color:black;padding:10px 20px 10px 10px !important;text-align:center;">Create an account</h6>
+
+               <span class="closeR close" style="margin:0">&times;</span>
+
+
+          </div>
+           <div class="modal-content registerModal" style="background: #f7f7f7;/*box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;*/">
+
+             <div class="logForm" >
+               <div class="input-group mb-3">
+                 <div class="input-group-prepend">
+                   <span class="input-group-text" id="basic-addon1" > <i class="fas fa-at"></i></span>
+                 </div>
+                 <input type="text" class="form-control inputForm mailReg" placeholder="Mail address" aria-label="Username" name="mail" aria-describedby="basic-addon1" required>
+               </div>
+
+               <div class="input-group mb-3">
+                 <div class="input-group-prepend">
+                   <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+                 </div>
+                 <input type="password" class="form-control inputForm passwordReg" name="password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" required>
+               </div>
+
+               <div class="input-group mb-3">
+                 <div class="input-group-prepend">
+                   <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
+                 </div>
+                 <input type="password" class="form-control inputForm passwordRegConfirm" placeholder="Confirm password" aria-label="Username" aria-describedby="basic-addon1">
+
+               </div>
+               <p id='message'></p>
+               <button type="submit" class="btn btn-primary formRegBtn" style="float:right">Register</button>
+             </div>
+           </div>
+
+         </div>
+
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left " style="width: 80%;background:#30415d;color:white;box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-right:#031424 solid 2px" id="mySidebar" >
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" style="position:relative;text-align:right" onclick="w3_close()">Close &times;</button>
+  <%if(username==""){%>
+    <ul style="list-style:none;display:block;padding:0">
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="loginBtn" style=""><i class="fas fa-sign-in-alt" style="margin-right:20px;font-size:20px"></i> Login</button></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button " id="regBtn" style="s"><i class="fas fa-registered" style="margin-right:20px;font-size:20px"></i> Register</button></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button "><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> Info</a></li>
+
+    </ul>
+
+
+    <%}else{%>
+      <ul style="list-style:none;display:block;padding:0">
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:20px;font-size:20px;width:20px;margin-right:25px"></i><%= username%></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button "><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> Info</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:20px;font-size:20px"></i> Quit</button></li>
+
+      </ul>
+
+       <!-- The Modal login-->
+      <%}%>
+
+
+</div>
+
+<div class="w3-main " style="background: ">
+  <div class="sticky-top ss" id="removeSticky">
+<div class="" style="background-color:#30415d !important">
+
+    <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()" style="color:white !important;background-color:#30415d !important">&#9776;</button>
+    <h3 class="navbar-brand" href="/" style="margin-left:90px;color:white">TrufLive</h3>
+    <div class="userInfo">
+      <% if(username!=""){%>
+        <p style="position:absolute;top:10px;right:10px;color:white;font-size:14px" class="moneyUser">Your balance :<br> <span style="margin-left:15px"><%= money%>$<span></p>
+
+
+      </div>
+      </div>
+      <div class="" style="background:#AB987A;padding-top:2px"></div>
+
+<%}else{%>
+  <button class="w3-bar-item w3-button " id="signIn" style="background:none;border:none;color:white;font-size:14px; position:absolute;right:1px;top:10px;"><i class="fas fa-key" style="font-size:20px;color:"></i> </button>
+
+      </div>
+      </div>
+      <div class=""style="background:#AB987A;padding-top:2px"></div>
+      <div class="container-fluid " style="">
+        <div class="row"  style="background-color:#30415d !important;height:80px;position:relative;padding:0 !important;">
+          <div class="col-6 col-sm-6 col-md-6">
+            <button type="button" class="btn btn-primary registerQuickButton" >Register</button>
+          </div>
+          <div class="col-6 col-sm-6 col-md-6">
+            <button type="button" class="btn btn-primary loginQuickButton" >Login</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12" style="background:#AB987A;padding-top:2px">
+
+          </div>
+        </div>
+      </div>
+<%}%>
+
+
+</div>
+
+  <div class="container-fluid" style="background:white;">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12">
+        <div class="row" style="background:#373737;color:white">
+          <div class="col-12 col-sm-12 col-md-12" style="padding: 15px"><img src="./img/en.jpg" alt="flag" width="20" height="18" style="margin-right:15px"> <%= country%></div>
+        </div>
+
+          <div class="row" style="background:;color:black">
+            <div class="col-12 col-sm-12 col-md-12" style="padding:0">
+              <ul style="list-style:none;padding:0">
+                <%for(var i=0;i<stadiums.length;i++){%>
+                  <%if(i+1==stadiums.length){%>
+                    <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadium%>&arrayRaces=<%=JSON.stringify(stadiums[i].orari)%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadium%></a></li>
+                  <%}else{%>
+                    <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadium%>&arrayRaces=<%=JSON.stringify(stadiums[i].orari)%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadium%></a></li>
+                  <%}%>
+                <%}%>
+              </ul>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+<script>
+function w3_open() {
+  $('#mySidebar').css('display','block');
+  $('#removeSticky').removeClass('sticky-top');
+//  document.getElementById("mySidebar").style.display = "block";
+//  document.getElementById("removeSticky").class ="";
+}
+
+function w3_close() {
+  $('#mySidebar').css('display','none');
+  $('#removeSticky').addClass('sticky-top');
+  //document.getElementById("mySidebar").style.display = "none";
+//  document.getElementById("removeSticky").class ="sticky-top";
+}
+
+// Get the modal
+var modaR = document.getElementById('register');
+
+// Get the button that opens the modal
+var btnR = document.getElementById("regBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("closeR")[0];
+
+// When the user clicks on the button, open the modal
+btnR.onclick = function() {
+  modaR.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modaR.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modaRr) {
+    modaR.style.display = "none";
+  }
+}
+
+
+// Get the modal
+var modaL = document.getElementById('login');
+
+// Get the button that opens the modal
+var btnL = document.getElementById("loginBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("closeL")[0];
+
+// When the user clicks on the button, open the modal
+btnL.onclick = function() {
+  modaL.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modaL.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modaL) {
+    modaL.style.display = "none";
+  }
+}
+</script>
+
+<script>
+
+
+</script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/live.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script></body>
+</html>
