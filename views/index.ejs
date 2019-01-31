@@ -102,7 +102,7 @@
          </div>
 
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left " style="width: 80%;background:#30415d;color:white;box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-right:#031424 solid 2px" id="mySidebar" >
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" style="position:relative;text-align:right" onclick="w3_close()">Close &times;</button>
+  <button class="w3-bar-item w3-button w3-large w3-hide-large closeButtonLeftMenu" style="padding:10px 15px 0px 10px !important;position:relative;text-align:right" onclick="w3_close()"><span style="margin-right: 10px;font-size:25px"> &times;</span></button>
   <%if(username==""){%>
     <ul style="list-style:none;display:block;padding:0">
       <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="loginBtn" style=""><i class="fas fa-sign-in-alt" style="margin-right:20px;font-size:20px"></i> Login</button></li>
@@ -132,8 +132,9 @@
   <div class="sticky-top ss" id="removeSticky">
 <div class="" style="background-color:#30415d !important">
 
-    <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()" style="color:white !important;background-color:#30415d !important">&#9776;</button>
-    <h3 class="navbar-brand" href="/" style="margin-left:90px;color:white">TrufLive</h3>
+  <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()" style="padding-top:0!important;color:white !important;background-color:#30415d !important;">&#9776;</button>
+    <a href="/"><i class="fas fa-home" style="margin-right:18px;font-size:24px;color:white"></i></a>
+    <h3 class="navbar-brand" href="/" style="margin-left:30px;color:white;font-family:'Lucida Console', Monaco, monospace">TurfLive</h3>
     <div class="userInfo">
       <% if(username!=""){%>
         <p style="position:absolute;top:10px;right:10px;color:white;font-size:14px" class="moneyUser">Your balance :<br> <span style="margin-left:15px"><%= money%>$<span></p>
@@ -150,7 +151,7 @@
       </div>
       <div class=""style="background:#AB987A;padding-top:2px"></div>
       <div class="container-fluid " style="">
-        <div class="row"  style="background-color:#30415d !important;height:80px;position:relative;padding:0 !important;">
+        <div class="row"  style="background-color:#30415d !important;height:50px;position:relative;padding:0 !important;">
           <div class="col-6 col-sm-6 col-md-6">
             <button type="button" class="btn btn-primary registerQuickButton" >Register</button>
           </div>

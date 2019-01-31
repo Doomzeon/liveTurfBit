@@ -11,7 +11,7 @@ ws.onmessage = function (ev) {
     $('.moneyTot_'+d.horseName).text(d.horseBankTot+'$');
     $('.moneyTotalBank').text(d.totalBank);
     //
-    var width=175;
+    var width=173;
     for(var i=0;i<d.arSortHorsPos.length;i++){
       var widthfINAL=width*parseInt(d.arSortHorsPos[i].percent)/100;
       $('.line_'+d.arSortHorsPos[i].horse).stop(true, true).animate({
@@ -19,7 +19,7 @@ ws.onmessage = function (ev) {
       }, animate_ms);
       $('.line_'+d.arSortHorsPos[i].horse).css('width',widthfINAL);
     }
-    chagneHorsePosition(d.arSortHorsPos);
+    //chagneHorsePosition(d.arSortHorsPos);
 
   }else if(d.event=='changeUser_Balance'){
     $('.moneyUser').text();
@@ -57,8 +57,8 @@ $( document ).ready(function() {
             type:'POST',
             async: false,
             success: function (data) {
-              window.location.href='/';
-              window.location.href='/';
+              window.location.href=window.location.href;
+              window.location.href=window.location.href;
             }
           });
     });
@@ -84,7 +84,7 @@ $( document ).ready(function() {
             },
             success: function (data) {
               if(data=='ok)'){
-                window.location.href='/';
+                window.location.href=window.location.href;
               }else{
                 alert(data);
               }

@@ -16,7 +16,8 @@
 body,html{
   padding: 0;
   margin:0;
-      font-family: "Open Sans",Arial,"Helvetica Neue",Helvetica,sans-serif !important;
+  font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif !important;
+
 }
 
 .modalLog,.modalReg{
@@ -35,7 +36,14 @@ body,html{
 background: #f7f7f7;
   margin:45px 20px 20px 20px;
 }
-.formLogBtn,.formRegBtn,.userBtn,.betButton {
+
+.betButton{
+  border:#30415d 1px solid;
+  background: #30415d;
+  color:white;
+  margin:10px !important;
+}
+.formLogBtn,.formRegBtn,.userBtn {
   border:#30415d 1px solid;
   background: #30415d;
   color:white;
@@ -67,6 +75,17 @@ outline:0 !important;
   transition: 0.8s;
 }
 
+.nextRace>a,.nextRace0>a{
+  text-decoration: none;
+}
+.nextRace>a{
+
+    color:white;
+}
+.nextRace0>a{
+
+    color:#f4f4f2;
+}
 .tableHorsesLive>thead>tr>th,.tableHorsesLive>tbody>tr>td{
   border:none;
   padding:5px;
@@ -78,13 +97,17 @@ outline:0 !important;
   background:white;
   border:none;
 }
+.lineDiv,.betButton{
 
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
 .line{
 width: 0;
 height: 6px;
-border-bottom: 10px solid green;
+border-bottom: 10px solid #42ab09;
 position: relative;
-border-radius:10px
+border-radius:10px;
 }
 
 .moneyTot{
@@ -94,18 +117,20 @@ border-radius:10px
   top:0;
 }
 .loginQuickButton{
-  background: white !important;
-  color:black !important;
+  background: #EE693F !important;
+  color:WHITE !important;
   padding: 10px 0 10px 0 !important;
   width:100%;
-  margin-top:20px;
+  margin-top:4px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 .registerQuickButton{
-  background: #3CC47C !important;
+  background: #42ab09 !important;
   color:white !important;
   padding: 10px 0 10px 0 !important;
   width:100%;
-  margin-top:20px;
+  margin-top:4px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 .registerQuickButton{
   border: none;
@@ -134,10 +159,10 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   margin:5px;
   float:left;
   border-radius:6px;
-  background:#3CC47C !important;
+  background:#42ab09 !important;
   border:none !important;
   padding-left:2.5px;
-  padding: 5px 11px 5px 11px;
+  padding: 3px 6px 3px 6px;
   text-align:center;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -148,7 +173,7 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   background:#30415d !important;
   border:none !important;
   color:white;
-  padding: 5px 11px 5px 11px;
+  padding: 3px 6px 3px 6px;
   text-align:center;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
