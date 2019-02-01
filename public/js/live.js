@@ -224,3 +224,33 @@ $(document).mouseup(function (e) {
      $('#mySidebar').css('display','none');
   }
  });
+
+
+ function addFavouriteHorseQuick(horseName,idRace,thisElem,name_){
+   $('.quickButtonsBetRow').css('display','block');
+   //var elem= $('.betButton'+horseName).html()
+
+   if($('.betButtonQuickPick'+name_).get().length==0||$('.betButtonQuickPick'+horseName).get()==undefined||$('.betButtonQuickPick'+horseName).get()==null){
+     if($('.quickTableBet tr ').length==0){
+       //aggiungo la prima tr
+       var htmlTxt='<tr ">'+
+        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+horseName+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td></tr>';
+       $('.quickTableBet').append(htmlTxt);
+     }else if($('.quickTableBet tr:last td').length<2){
+       var htmlTxt=''+
+        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+horseName+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td>';
+       $('.quickTableBet tr:last').append(htmlTxt);
+       //aggiungo td a tr
+     }else if($('.quickTableBet tr:last td').length>=2){
+       //aggiungo nuova tr e aggiungo li la td
+       var htmlTxt='<tr>'+
+        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+horseName+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td></tr>';
+       $('.quickTableBet tr:last').after(htmlTxt);
+     }
+     $(thisElem).css('color','orange');
+   }else{
+     $('.quickTableBetTd'+name_).remove();
+     $(thisElem).css('color','black');
+   }
+
+}

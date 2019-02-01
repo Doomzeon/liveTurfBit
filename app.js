@@ -139,7 +139,7 @@ app.get('/',(req,res)=>{
     res.render('index',{
       stadiums:tableStadiums.StadiumHours(jsonDataMatches.races),
       username:"",
-      country:"GreatBritain"
+      country:"Great Britain"
     })
 
     /*MongoClient.connect(url, function(err, db) {

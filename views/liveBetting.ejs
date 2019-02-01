@@ -272,10 +272,12 @@
          <ul style="list-style:none;display:flex;margin:0;padding:10px 0 10px 0;">
             <%for (var i=0;i<arrayNextRaces.length;i++){%>
 
-              <%if(i==0){%>
-              <li class="nextRace0" style=""><a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 12px;"><span style="font-size:17px"><%=i+1%></span><br><%=arrayNextRaces[i].ora%></a></li>
+              <%if(i==0 ){%>
+              <li class="nextRace0" style=""><a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%=i+1%></span><br><%=arrayNextRaces[i].ora%></a></li>
+              <%}else if(raceId==arrayNextRaces[i].idGara){%>
+                <li class="nextRace nextRaceS" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><%=arrayNextRaces[i].ora%></a></li>
               <%}else{%>
-              <li class="nextRace" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 12px;"><span style="font-size:17px"><%=i+1%></span><br><%=arrayNextRaces[i].ora%></a></li>
+              <li class="nextRace" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><%=arrayNextRaces[i].ora%></a></li>
 
                 <%}%>
             <%}%>
@@ -286,7 +288,21 @@
 
 
 
+<div class="row quickButtonsBetRow"  style="display:none">
 
+  <div class="col-12 col-sm-12 col-md-12 quickButtonsBet" >
+
+    <table class="table" style="border:none !important;">
+      <thead style="border:none !important;">
+
+      </thead>
+      <tbody class="quickTableBet">
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
 
   <div class="row">
     <div class="col-sm-11" style="padding:0">
@@ -325,7 +341,7 @@
                   <td style="width:65%">
 
                     <div class="row">
-                      <div class="col-12 col-sm-12 col-xm-12"><b><%=betMoneyOnHorse[i].horseName%> <i class="fa fa-star" aria-hidden="true" style=""></i></b></div>
+                      <div class="col-12 col-sm-12 col-xm-12"><b><%=betMoneyOnHorse[i].horseName%> <i class="fa fa-star" onclick="addFavouriteHorseQuick('<%=betMoneyOnHorse[i].horseName%>', '<%= raceId%>',this,'<%=betMoneyOnHorse[i].name%>')" aria-hidden="true" style=""></i></b></div>
                     </div>
                     <div class="row">
                       <div class="col-5 col-sm-5 col-xm-5" style="font-size:9px;padding-right:0;">
@@ -380,7 +396,9 @@
                   </td>
                   <td>
                     <%if(betMoneyOnHorse!=null){%>
-                      <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                      <div class="betButton<%=betMoneyOnHorse[i].name%>">
+                      <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%> betButton<%=betMoneyOnHorse[i].name%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                    </div>
                     <%}else{%>
                       <button type="button" class="btn btn-primary betButton "  style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
 
@@ -405,7 +423,7 @@
                       <td style="width:65%">
 
                         <div class="row">
-                          <div class="col-12 col-sm-12 col-xm-12"><b><%=jsonDataFirstLiveMatch[i].horseName%></b></div>
+                          <div class="col-12 col-sm-12 col-xm-12"><b><%=jsonDataFirstLiveMatch[i].horseName%> <i class="fa fa-star" onclick="addFavouriteHorseQuick('<%=jsonDataFirstLiveMatch[i].horseName%>', '<%= raceId%>',this,'<%=jsonDataFirstLiveMatch[i].name%>')" aria-hidden="true" style=""></i></b></div>
                         </div>
                         <div class="row">
                           <div class="col-5 col-sm-5 col-xm-5" style="font-size:9px;padding-right:0;">
@@ -460,7 +478,9 @@
                       </td>
                       <td>
                         <%if(betMoneyOnHorse!=null){%>
-                          <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                          <div class="betButton<%=betMoneyOnHorse[i].name%>">
+                          <button type="button" class="btn btn-primary betButton  <%=betMoneyOnHorse[i].name%> <%= raceId%> " onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                        </div>
                         <%}else{%>
                           <button type="button" class="btn btn-primary betButton "  style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
 
