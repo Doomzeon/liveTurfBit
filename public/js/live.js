@@ -185,9 +185,35 @@ function betting(horse,raceId,button){
         horse:""+classi[3],
         moneyBet:parseFloat($('.stakeInsered').val()),
         mailUser:""+$('#usernameLogged').text(),
-        datetime:currentdate.getHours()+':'+currentdate.getMinutes()+':'+currentdate.getSeconds()
+        datetime:currentdate.getHours()+':'+currentdate.getMinutes()+':'+currentdate.getSeconds()+':'+currentdate.getMilliseconds(),
+        stadium:$('.stadiumName').text(),
+        country:$('.counrtyName').text()
       };
       ws.send(JSON.stringify(obj));
+
+
+      $('.horseNamePopBet').text($('.horseNameUs'+classi[3]).text());
+
+      $('.timePopBet').text(currentdate.getHours()+':'+currentdate.getMinutes()+':'+currentdate.getSeconds()+':'+currentdate.getMilliseconds());
+      $('.moneyPopBet').text(parseFloat($('.stakeInsered').val()));
+
+        $('.popUpBetRow').css('display','block');
+      $('.popUpBetRow').animate({
+          opacity: 1
+      }, 300,function(){
+        setTimeout(function(){
+          $('.popUpBetRow').css('display','block');
+          $('.popUpBetRow').animate({
+              opacity: 0
+          }, 300,function(){
+            $('.popUpBetRow').css('display','none');
+            $('.horseNamePopBet').text('');
+            $('.timePopBet').text('');
+            $('.moneyPopBet').text('');
+          });
+        }, 2000);
+
+      });
     }
   }
 }
@@ -227,6 +253,19 @@ $(document).mouseup(function (e) {
 
 
  function addFavouriteHorseQuick(horseName,idRace,thisElem,name_){
+   $.ajax({
+       url: '/putFavouritesinSes_Coock',
+       type:'POST',
+       async: false,
+       data:{
+         name_:name_,
+         horseName:horseName,
+         idRace:idRace
+       }
+     });
+
+
+
    $('.quickButtonsBetRow').css('display','block');
    //var elem= $('.betButton'+horseName).html()
 
@@ -234,17 +273,17 @@ $(document).mouseup(function (e) {
      if($('.quickTableBet tr ').length==0){
        //aggiungo la prima tr
        var htmlTxt='<tr ">'+
-        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+horseName+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td></tr>';
+        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+name_+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td></tr>';
        $('.quickTableBet').append(htmlTxt);
      }else if($('.quickTableBet tr:last td').length<2){
        var htmlTxt=''+
-        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+horseName+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td>';
+        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+name_+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td>';
        $('.quickTableBet tr:last').append(htmlTxt);
        //aggiungo td a tr
      }else if($('.quickTableBet tr:last td').length>=2){
        //aggiungo nuova tr e aggiungo li la td
        var htmlTxt='<tr>'+
-        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+horseName+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td></tr>';
+        '<td class="quickTableBetTd'+name_+'"><button type="button" class="btn btn-primary betButtonQuickPick '+name_+' '+idRace+' betButtonQuickPick'+name_+'" onclick="betting('+"'"+''+name_+''+"'"+', '+"'"+''+idRace.toString()+''+"'"+', this)" style="margin:0;margin-left:35px;margin-top:10px;">'+horseName+'</button></td></tr>';
        $('.quickTableBet tr:last').after(htmlTxt);
      }
      $(thisElem).css('color','orange');
@@ -254,3 +293,22 @@ $(document).mouseup(function (e) {
    }
 
 }
+function startAnimationRaceLive(){
+  //nextRace0
+  $('.liveTag').animate({
+      opacity: 1
+  }, 500,function(){
+
+    //$('.nextRace0').css('display','block');
+    $('.liveTag').animate({
+        opacity: 0.5
+    }, 500,function(){
+    //  $('.nextRace0').css('display','none');
+
+    });
+  });
+}
+
+window.setInterval(function(){
+  startAnimationRaceLive();
+}, 1400);

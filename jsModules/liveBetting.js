@@ -1,7 +1,7 @@
 const liveTableHorse=require(__dirname+'/liveTableHorse')
 var tableStadiums = require(__dirname+'/tableStadiums.js');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://admin:admin@horsebet-vyr0z.gcp.mongodb.net/test?retryWrites=true";
+var url = "mongodb://admin:admin@horsebet-shard-00-00-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-01-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-02-vyr0z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=horseBet-shard-0&authSource=admin&retryWrites=true";
 
 
 exports.live= function(req,res,jsonDataMatches){

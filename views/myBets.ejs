@@ -1,0 +1,200 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/live.css" >
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <title>Hello, world!</title><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left " style="width: 80%;background:#30415d;color:white;box-shadow: 50px 50px 550px 50px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-right:#031424 solid 2px" id="mySidebar" >
+  <button class="w3-bar-item w3-button w3-large w3-hide-large closeButtonLeftMenu" style="padding:10px 15px 0px 10px !important;position:relative;text-align:right" onclick="w3_close()"><span style="margin-right: 10px;font-size:25px"> &times;</span></button>
+
+
+      <ul style="list-style:none;display:block;padding:0">
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:20px;font-size:20px;width:20px;margin-right:25px;margin-left:3px"></i><%= mail%></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:20px;font-size:20px"></i> Your bets</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px;font-size:20px"></i> Info</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:20px;font-size:20px"></i> Quit</button></li>
+
+      </ul>
+
+       <!-- The Modal login-->
+
+
+
+
+</div>
+
+<div class="w3-main " >
+  <div class="sticky-top ss align-self-start" id="removeSticky" style="box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+<div class="" style="background-color:#30415d !important">
+
+    <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()" style="padding-top:0!important;color:white !important;background-color:#30415d !important;">&#9776;</button>
+    <a href="/"><i class="fas fa-home" style="margin-right:18px;font-size:24px;color:white"></i></a>
+    <h3 class="navbar-brand" href="/" style="margin-left:30px;color:white;font-family:'Lucida Console', Monaco, monospace">TurfLive</h3>
+    <div class="userInfo">
+
+        <p class= "" style="position:absolute;top:10px;right:10px;color:white;font-size:14px" >Your balance :<br> <span style="margin-left:15px" class="moneyUser"><%= money%><span>$</p>
+
+
+      </div>
+      </div>
+      <div class="" style="background:#AB987A;padding-top:6px"></div>
+
+
+</div>
+
+
+
+  <div class="contrainer-fluid">
+
+    <div class="row">
+      <div class="col-1 col-sm-1 col-md-1">
+
+      </div>
+      <div class="col-10 col-sm-10 col-md-10">
+
+        <% for(var i=0;i<json.length;i++){%>
+
+          <div class="row" style="background:#373737;color:white;margin-top:20px">
+            <div class="col-12 col-sm-12 col-md-12" style="padding: 12px">
+              <img src="./img/en.jpg" alt="flag" width="20" height="18" style="margin-right:15px"><span style="position:relative;top:2px" class="counrtyName"><%= json[i].country%></span>
+              <span style="float:right">
+               <span class="stadiumName"><%= json[i].stadium%></span> <%= json[i].status%></span></div>
+
+            </div>
+            <div class="row" style="border:#373737 solid 1px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <div class="col-12 col-sm-12 col-md-12" style="padding: 12px">
+
+                <table class="table " style="font-size: 15px;text-align:center;margin:3px 0 2px 0 !important;">
+                  <thead style="font-size: 12px;">
+                    <tr>
+                      <th style="border:none;padding:5px">Horse</th>
+                      <th style="border:none;padding:5px">Time</th>
+                      <th style="border:none;padding:5px">Betted</th>
+                    </tr>
+                  </thead>
+                  <tbody class="" style="font-size: 12px;">
+                    <tr>
+                      <td style="border:none;padding:5px"> <%= json[i].horse%></td>
+                      <td style="border:none;padding:5px"> <%= json[i].time%></td>
+                      <td style="border:none;padding:5px"> <%= json[i].moneyBetted%></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+
+        <%}%>
+
+
+        </div>
+      </div>
+      <div class="col-1 col-sm-1 col-md-1">
+
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+
+<script>
+function w3_open() {
+  $('#mySidebar').css('display','block');
+  $('#removeSticky').removeClass('sticky-top');
+//  document.getElementById("mySidebar").style.display = "block";
+//  document.getElementById("removeSticky").class ="";
+}
+
+function w3_close() {
+  $('#mySidebar').css('display','none');
+  $('#removeSticky').addClass('sticky-top');
+  //document.getElementById("mySidebar").style.display = "none";
+//  document.getElementById("removeSticky").class ="sticky-top";
+}
+
+// Get the modal
+var modaR = document.getElementById('register');
+
+// Get the button that opens the modal
+var btnR = document.getElementById("regBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("closeR")[0];
+
+// When the user clicks on the button, open the modal
+btnR.onclick = function() {
+  modaR.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modaR.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modaRr) {
+    modaR.style.display = "none";
+  }
+}
+
+
+// Get the modal
+var modaL = document.getElementById('login');
+
+// Get the button that opens the modal
+var btnL = document.getElementById("loginBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("closeL")[0];
+
+// When the user clicks on the button, open the modal
+btnL.onclick = function() {
+  modaL.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modaL.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modaL) {
+    modaL.style.display = "none";
+  }
+}
+</script>
+
+<script>
+
+
+</script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/live.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script></body>
+</html>

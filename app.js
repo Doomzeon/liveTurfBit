@@ -16,8 +16,10 @@ const WebSocket = require('ws').Server;
 var cookieParser = require('cookie-parser');
 var firstLiveMatchModule=require(__dirname+'/jsModules/liveTableHorse.js')
 var tableStadiums = require(__dirname+'/jsModules/tableStadiums.js');
+var myBets = require(__dirname+'/jsModules/myBets.js');
+var favouriteHorses = require(__dirname+'/jsModules/favouritesHorsesUser.js');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://admin:admin@horsebet-vyr0z.gcp.mongodb.net/test?retryWrites=true";
+var url = "mongodb://admin:admin@horsebet-shard-00-00-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-01-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-02-vyr0z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=horseBet-shard-0&authSource=admin&retryWrites=true";
 
 
 
@@ -72,7 +74,7 @@ wss.on('connection', function (ws) {
 
    console.log('User connected')
 });
-const intervalRaceLive=setInterval(controlTimeLiveMatch, 2000);
+//const intervalRaceLive=setInterval(controlTimeLiveMatch, 2000);
 
 function controlTimeLiveMatch(){
 
@@ -127,8 +129,15 @@ function controlTimeLiveMatch(){
 }
 
 
-app.get('/liveBet',(req,res)=>{
+app.post('/putFavouritesinSes_Coock',(req,res)=>{
 
+
+  favouriteHorses.putJsonIn(req,res,req.body.name_,req.body.horseName,req.body.idRace);
+
+})
+
+app.get('/myBets',(req,res)=>{
+  myBets.renderPage(req,res);
 })
 
 app.get('/',(req,res)=>{
@@ -383,6 +392,8 @@ app.listen(8080, function () {
     dbo.collection("GreatBritain").findOne({},function(err, res) {
       if (err) throw err;
       db.close();
+      console.log(res)
+      console.log('///////')
       jsonDataMatches=res;
       loadFirstLiveMatchToDb(jsonDataMatches.races['GB-20181026-0'])
 
@@ -586,10 +597,10 @@ function getNameOfImage(horse,horses){
 
 function eventBet(clientJSON,wss,ws){
    changeHorseTotBankDBHTML(clientJSON.raceId,clientJSON.horse,clientJSON.moneyBet,wss);
-   changeUserBalanceDBHTML(clientJSON.mailUser,ws,clientJSON.moneyBet,clientJSON.datetime,clientJSON.raceId,clientJSON.horse);
+   changeUserBalanceDBHTML(clientJSON.mailUser,ws,clientJSON.moneyBet,clientJSON.datetime,clientJSON.raceId,clientJSON.horse,clientJSON.stadium,clientJSON.country);
 }
 
-function changeUserBalanceDBHTML(mailUs,ws,moneyBetted,datetime,raceId,horse){
+function changeUserBalanceDBHTML(mailUs,ws,moneyBetted,datetime,raceId,horse,stadium,country){
   var query=[
   {
     '$match': {
@@ -628,11 +639,11 @@ function changeUserBalanceDBHTML(mailUs,ws,moneyBetted,datetime,raceId,horse){
           MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("TurfBit");
-            dbo.collection("BetsOfUsers").insertOne({mail:mailUs,moneyBetted:moneyBetted,time:datetime,raceId:raceId,horse:horse}, function(err, res) {
+            dbo.collection("BetsOfUsers").insertOne({mail:mailUs,moneyBetted:moneyBetted,time:datetime,raceId:raceId,horse:horse,stadium:stadium,country:country,status:'unknown'}, function(err, res) {
               if (err) throw err;
               //console.log("1 document updated");
               db.close();
-              console.log('Insert bet of user')
+              console.log('Inserted bet of user')
             });
           });
 
