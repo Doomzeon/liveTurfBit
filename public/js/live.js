@@ -260,7 +260,7 @@ $(document).mouseup(function (e) {
    $('.quickButtonsBetRow').css('display','block');
    //var elem= $('.betButton'+horseName).html()
 
-   if($('.betButtonQuickPick'+name_).get().length==0||$('.betButtonQuickPick'+horseName).get()==undefined||$('.betButtonQuickPick'+horseName).get()==null){
+   if(($('.betButtonQuickPick'+name_).get().length==0||$('.betButtonQuickPick'+horseName).get()==undefined||$('.betButtonQuickPick'+horseName).get()==null)&& $('#usernameLogged').text()!=undefined||$('#usernameLogged').text()!=null||$('#usernameLogged').text()!=''){
 
      $.ajax({
          url: '/putFavouritesinSes_Coock',
