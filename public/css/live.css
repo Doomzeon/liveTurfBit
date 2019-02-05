@@ -222,3 +222,17 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   background:white;
   font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
+
+
+
+
+<%if(jsonFavorites.length==1){%>
+  <td><% jsonFavorites[i].lenght%></td>
+</tr>
+<%}else if(jsonFavorites.length==2){%>
+  <td><% jsonFavorites[i].lenght%></td>
+  <td><% jsonFavorites[i+1].lenght%></td>
+</tr>
+<%}else if(){%>
+
+<%}%>

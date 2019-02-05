@@ -253,16 +253,7 @@ $(document).mouseup(function (e) {
 
 
  function addFavouriteHorseQuick(horseName,idRace,thisElem,name_){
-   $.ajax({
-       url: '/putFavouritesinSes_Coock',
-       type:'POST',
-       async: false,
-       data:{
-         name_:name_,
-         horseName:horseName,
-         idRace:idRace
-       }
-     });
+
 
 
 
@@ -270,6 +261,20 @@ $(document).mouseup(function (e) {
    //var elem= $('.betButton'+horseName).html()
 
    if($('.betButtonQuickPick'+name_).get().length==0||$('.betButtonQuickPick'+horseName).get()==undefined||$('.betButtonQuickPick'+horseName).get()==null){
+
+     $.ajax({
+         url: '/putFavouritesinSes_Coock',
+         type:'POST',
+         async: false,
+         data:{
+           name_:name_,
+           horseName:horseName,
+           idRace:idRace
+         },success: function (data) {
+           console.log(data)
+           }
+       });
+
      if($('.quickTableBet tr ').length==0){
        //aggiungo la prima tr
        var htmlTxt='<tr ">'+
@@ -290,6 +295,19 @@ $(document).mouseup(function (e) {
    }else{
      $('.quickTableBetTd'+name_).remove();
      $(thisElem).css('color','black');
+
+     $.ajax({
+         url: '/removeFavouritesinSes_Coock',
+         type:'POST',
+         async: false,
+         data:{
+           name_:name_,
+           idRace:idRace
+         },success: function (data) {
+           console.log(data)
+           }
+       });
+
    }
 
 }

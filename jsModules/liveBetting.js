@@ -5,6 +5,7 @@ var url = "mongodb://admin:admin@horsebet-shard-00-00-vyr0z.gcp.mongodb.net:2701
 
 
 exports.live= function(req,res,jsonDataMatches){
+
   var firstRace;
   var idsRaces;
   console.log(typeof(req.query.arrayRaces));
@@ -30,8 +31,9 @@ function checkRace(req,res,firstRace,jsonDataMatches){
       db.close();
       if(result==undefined || result==""){
         console.log('no races')
-        switchCasesRender(req,res,jsonDataMatches,null,null,firstRace);
+        switchCasesRender(req,res,jsonDataMatches,null,null,firstRace,firstRace);
         console.log('raceID:'+firstRace)
+
       }else{
         console.log(' Found race');
 
@@ -42,15 +44,18 @@ function checkRace(req,res,firstRace,jsonDataMatches){
           return 0;
         //  console.log('key 1:' +key1.percent+'// key 2 :'+key2.percent)
         });
-        console.log(result.horses)
-        switchCasesRender(req,res,jsonDataMatches,firstRace,result,firstRace);
+        //console.log(result.horses)
+        console.log('22 '+firstRace)
+        switchCasesRender(req,res,jsonDataMatches,firstRace,result,firstRace,firstRace);
       }
     });
   });
 }
 
 
-function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst){
+function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst,idGaraGB){
+
+
   if(firstRace!=null){
     var bankRace=result.totalBank;
     var horses=result.horses
@@ -59,7 +64,7 @@ function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst)
 
     if(req.session.mail==undefined&&req.cookies.mail==undefined){
       console.log('hmm non user info1')
-      renderPage(req,res,jsonDataMatches,"",firstRace,result.totalBank,idGaraFirst,result.horses,0,time)
+      renderPage(req,res,jsonDataMatches,"",firstRace,result.totalBank,idGaraFirst,result.horses,0,time,idGaraGB)
     }else if(req.cookies.mail!=undefined){
       query=[
       {
@@ -79,7 +84,7 @@ function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst)
         dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
           if (err) throw err;
           db.close();
-          renderPage(req,res,jsonDataMatches,req.cookies.mail,firstRace,bankRace,idGaraFirst,horses,result[0].money,time)
+          renderPage(req,res,jsonDataMatches,req.cookies.mail,firstRace,bankRace,idGaraFirst,horses,result[0].money,time,idGaraGB)
 
         })
       })
@@ -103,7 +108,7 @@ function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst)
           dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
             if (err) throw err;
             db.close();
-            renderPage(req,res,jsonDataMatches,req.session.mail,firstRace,bankRace,idGaraFirst,horses,result[0].money,time)
+            renderPage(req,res,jsonDataMatches,req.session.mail,firstRace,bankRace,idGaraFirst,horses,result[0].money,time,idGaraGB)
           })
         })
     }
@@ -111,7 +116,7 @@ function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst)
 
     if(req.session.mail==undefined&&req.cookies.mail==undefined){
       console.log('hmm non user info2')
-      renderPage(req,res,jsonDataMatches,"",firstRace,'0',idGaraFirst,null,0)
+      renderPage(req,res,jsonDataMatches,"",firstRace,'0',idGaraFirst,null,0,idGaraGB)
     }else if(req.cookies.mail!=undefined){
       query=[
       {
@@ -131,7 +136,7 @@ function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst)
         dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
           if (err) throw err;
           db.close();
-          renderPage(req,res,jsonDataMatches,req.cookies.mail,firstRace,'0',idGaraFirst,null,result[0].money,null)
+          renderPage(req,res,jsonDataMatches,req.cookies.mail,firstRace,'0',idGaraFirst,null,result[0].money,null,idGaraGB)
 
         })
       })
@@ -155,14 +160,14 @@ function switchCasesRender(req,res,jsonDataMatches,firstRace,result,idGaraFirst)
           dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
             if (err) throw err;
             db.close();
-            renderPage(req,res,jsonDataMatches,req.session.mail,firstRace,'0',idGaraFirst,null,result[0].money,null)
+            renderPage(req,res,jsonDataMatches,req.session.mail,firstRace,'0',idGaraFirst,null,result[0].money,null,idGaraGB)
           })
         })
     }
   }
 }
 
-function renderPage(req,res,jsonDataMatches,mail,idGara,totBank,idGaraFirst,betMoneyOnHorse,money,time){
+function renderPage(req,res,jsonDataMatches,mail,idGara,totBank,idGaraFirst,betMoneyOnHorse,money,time,idGaraGB){
 
   var arrayStadiumsInfo=tableStadiums.StadiumHours(jsonDataMatches.races);
   var idGaraIpo;
@@ -178,10 +183,37 @@ function renderPage(req,res,jsonDataMatches,mail,idGara,totBank,idGaraFirst,betM
   console.log('/////')
   console.log(betMoneyOnHorse);
   console.log('/////')*/
+  var favourites;
+  var sizeFav
+
+  if(req.session.jsonFavorites==undefined){
+    favourites=null;
+  }else if(req.session.jsonFavorites!=undefined){
+    for(var i=0;i<req.session.jsonFavorites.gare.length;i++){
+      console.log('asd'+idGaraGB)
+      if(req.session.jsonFavorites.gare[i].idRace==idGaraGB){
+        favourites=req.session.jsonFavorites.gare[i].arrayHorses
+        sizeFav=req.session.jsonFavorites.gare[i].arrayHorses.length
+      }
+    }
+  }
+
+  /*if(req.cookies.jsonFavorites==undefined){
+    favourites=null;
+  }else{
+    for(var i=0;i<req.cookies.jsonFavorites.gare.length;i++){
+      if(req.cookies.jsonFavorites.gare[i].idRace==idGaraFirst){
+        favourites=req.cookies.jsonFavorites.gare[i].arrayHorses
+        sizeFav=req.cookies.jsonFavorites.gare[i].arrayHorses.length
+      }
+    }
+  }*/
+
   if(betMoneyOnHorse!=null){
     var timeArr=time.split(':')
     var minutes=timeArr[0]
     var seconds=timeArr[1]
+
     res.render('liveBetting', {
       jsonDataFirstLiveMatch:null,
       username:mail,
@@ -195,7 +227,10 @@ function renderPage(req,res,jsonDataMatches,mail,idGara,totBank,idGaraFirst,betM
       money:money,
       comment:jsonDataMatches.races[idGaraFirst].Data.tip,
       minutes:minutes,
-      seconds:seconds
+      seconds:seconds,
+      jsonFavorites:favourites,
+      sizeJsonFav:sizeFav,
+      arrayStelleCavalli:favourites
     });
   }else{
     res.render('liveBetting', {
@@ -210,7 +245,10 @@ function renderPage(req,res,jsonDataMatches,mail,idGara,totBank,idGaraFirst,betM
       arrayNextRaces:idGaraIpo,
       money:money,
       comment:jsonDataMatches.races[idGaraFirst].Data.tip,
-      minutes:null
+      minutes:null,
+      jsonFavorites:favourites,
+      sizeJsonFav:sizeFav,
+      arrayStelleCavalli:null
     });
   }
 

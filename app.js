@@ -18,6 +18,7 @@ var firstLiveMatchModule=require(__dirname+'/jsModules/liveTableHorse.js')
 var tableStadiums = require(__dirname+'/jsModules/tableStadiums.js');
 var myBets = require(__dirname+'/jsModules/myBets.js');
 var favouriteHorses = require(__dirname+'/jsModules/favouritesHorsesUser.js');
+var favouriteHorsesRem = require(__dirname+'/jsModules/removeFavouriteHorseUser.js');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://admin:admin@horsebet-shard-00-00-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-01-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-02-vyr0z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=horseBet-shard-0&authSource=admin&retryWrites=true";
 
@@ -133,6 +134,12 @@ app.post('/putFavouritesinSes_Coock',(req,res)=>{
 
 
   favouriteHorses.putJsonIn(req,res,req.body.name_,req.body.horseName,req.body.idRace);
+
+})
+
+app.post('/removeFavouritesinSes_Coock',(req,res)=>{
+
+  favouriteHorsesRem.remove(req,res,req.body.name_,req.body.idRace)
 
 })
 
@@ -304,8 +311,15 @@ app.get('/liveBetting',(req,res)=>{
 })
 
 app.post('/endSession',(req,res)=>{
+
+  if(req.session.mail!=undefined){
+    req.session.destroy();
+  }else if(req.cookies.mail!=undefined){
+    res.clearCookie("mail");
+    res.clearCookie("password");
+    res.clearCookie("jsonFavorites");
+  }
   res.send('ss');
-  req.session.destroy();
 })
 
 app.post('/login',(req,res)=>{

@@ -284,7 +284,7 @@
                 <div class="liveTag" style="">
                   LIVE
                 </div>
-                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;font-size:11px"><%=arrayNextRaces[i].ora%></span></a></li>
+                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;font-size:11pxg"><%=arrayNextRaces[i].ora%></span></a></li>
               <%}else if(raceId==arrayNextRaces[i].idGara){%>
                 <li class="nextRace nextRaceS" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
               <%}else{%>
@@ -298,22 +298,75 @@
   </div>
 
 
+<%if(jsonFavorites==null){%>
+  <div class="row quickButtonsBetRow"  style="display:none">
 
-<div class="row quickButtonsBetRow"  style="display:none">
+    <div class="col-12 col-sm-12 col-md-12 quickButtonsBet" >
 
-  <div class="col-12 col-sm-12 col-md-12 quickButtonsBet" >
+      <table class="table" style="border:none !important;">
+        <thead style="border:none !important;">
 
-    <table class="table" style="border:none !important;">
-      <thead style="border:none !important;">
+        </thead>
+        <tbody class="quickTableBet">
 
-      </thead>
-      <tbody class="quickTableBet">
+        </tbody>
+      </table>
 
-      </tbody>
-    </table>
-
+    </div>
   </div>
-</div>
+<%}else{%>
+  <table class="table" style="border:none !important;">
+    <thead style="border:none !important;">
+
+    </thead>
+    <tbody class="quickTableBet">
+      <%for(var i=0;i<sizeJsonFav;i++){%>
+          <%if(sizeJsonFav%2==0){%>
+            <tr>
+              <td class="quickTableBetTd<%=jsonFavorites[i].name_%>">
+                <button type="button" class="btn btn-primary betButtonQuickPick <%=jsonFavorites[i].name_%> <%=jsonFavorites[i].idRace%> betButtonQuickPick<%=jsonFavorites[i].name_%>" onclick="betting('<%=jsonFavorites[i].name_%>','<%=jsonFavorites[i].idRace%>', this)" style="margin:0;margin-left:35px;margin-top:10px;"><%=jsonFavorites[i].horseName%></button>
+              </td>
+              <td class="quickTableBetTd<%=jsonFavorites[i+1].name_%>">
+                <button type="button" class="btn btn-primary betButtonQuickPick <%=jsonFavorites[i+1].name_%> <%=jsonFavorites[i+1].idRace%> betButtonQuickPick<%=jsonFavorites[i+1].name_%>" onclick="betting('<%=jsonFavorites[i+1].name_%>','<%=jsonFavorites[i+1].idRace%>', this)" style="margin:0;margin-left:35px;margin-top:10px;"><%=jsonFavorites[i+1].horseName%></button>
+              </td>
+            </tr>
+
+            <%i+=1%>
+          <%}else if(sizeJsonFav==undefined){%>
+            <tr>
+              <td class="quickTableBetTd<%=jsonFavorites.name_%>">
+                <button type="button" class="btn btn-primary betButtonQuickPick <%=jsonFavorites.name_%> <%=jsonFavorites.idRace%> betButtonQuickPick<%=jsonFavorites.name_%>" onclick="betting('<%=jsonFavorites.name_%>','<%=jsonFavorites.idRace%>', this)" style="margin:0;margin-left:35px;margin-top:10px;"><%=jsonFavorites.horseName%></button>
+              </td>
+            </tr>
+          <%}else{%>
+
+              <%if(i+1>=sizeJsonFav){%>
+                <tr>
+                  <td class="quickTableBetTd<%=jsonFavorites[i].name_%>">
+                    <button type="button" class="btn btn-primary betButtonQuickPick <%=jsonFavorites[i].name_%> <%=jsonFavorites[i].idRace%> betButtonQuickPick<%=jsonFavorites[i].name_%>" onclick="betting('<%=jsonFavorites[i].name_%>','<%=jsonFavorites[i].idRace%>', this)" style="margin:0;margin-left:35px;margin-top:10px;"><%=jsonFavorites[i].horseName%></button>
+                  </td>
+                </tr>
+              <%}else{%>
+                <tr>
+                  <td class="quickTableBetTd<%=jsonFavorites[i].name_%>">
+                    <button type="button" class="btn btn-primary betButtonQuickPick <%=jsonFavorites[i].name_%> <%=jsonFavorites[i].idRace%> betButtonQuickPick<%=jsonFavorites[i].name_%>" onclick="betting('<%=jsonFavorites[i].name_%>','<%=jsonFavorites[i].idRace%>', this)" style="margin:0;margin-left:35px;margin-top:10px;"><%=jsonFavorites[i].horseName%></button>
+                  </td>
+                  <td class="quickTableBetTd<%=jsonFavorites[i+1].name_%>">
+                    <button type="button" class="btn btn-primary betButtonQuickPick <%=jsonFavorites[i+1].name_%> <%=jsonFavorites[i+1].idRace%> betButtonQuickPick<%=jsonFavorites[i+1].name_%>" onclick="betting('<%=jsonFavorites[i+1].name_%>','<%=jsonFavorites[i+1].idRace%>', this)" style="margin:0;margin-left:35px;margin-top:10px;"><%=jsonFavorites[i+1].horseName%></button>
+                  </td>
+                </tr>
+                <%i+=1%>
+              <%}%>
+          <%}%>
+
+
+      <%}%>
+
+    </tbody>
+  </table>
+
+<%}%>
+
 
   <div class="row">
     <div class="col-sm-11" style="padding:0">
@@ -352,7 +405,7 @@
                   <td style="width:65%">
 
                     <div class="row">
-                      <div class="col-12 col-sm-12 col-xm-12"><b class="horseNameUs<%=betMoneyOnHorse[i].name%>"><%=betMoneyOnHorse[i].horseName%> <i class="fa fa-star" onclick="addFavouriteHorseQuick('<%=betMoneyOnHorse[i].horseName%>', '<%= raceId%>',this,'<%=betMoneyOnHorse[i].name%>')" aria-hidden="true" style=""></i></b></div>
+                      <div class="col-12 col-sm-12 col-xm-12"><b class="horseNameUs<%=betMoneyOnHorse[i].name%>"><%=betMoneyOnHorse[i].horseName%> <i class="fa fa-star star<%=betMoneyOnHorse[i].name%>" onclick="addFavouriteHorseQuick('<%=betMoneyOnHorse[i].horseName%>', '<%= raceId%>',this,'<%=betMoneyOnHorse[i].name%>')" aria-hidden="true" style=""></i></b></div>
                     </div>
                     <div class="row">
                       <div class="col-5 col-sm-5 col-xm-5" style="font-size:8px;padding-right:0;">
@@ -826,7 +879,15 @@ window.onclick = function(event) {
 </script>
 
 <script>
+$( document ).ready(function() {
+  <%if(arrayStelleCavalli!=null){%>
+    <%for(var i=0;i<arrayStelleCavalli.length;i++){%>
+      $('.star<%=arrayStelleCavalli[i].name_%>').css('color','orange');
 
+    <%}%>
+  <%}%>
+
+});
 
 </script>
 
