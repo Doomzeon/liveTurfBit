@@ -5,7 +5,7 @@ exports.remove=function(req,res,name_,idRace){
 
 
     res.send(')')
-  }else if(req.session.mail!=undefined){
+  }else if(req.session.mail!=undefined||req.session.jsonFavorites!=undefined){
     //aggiungo il json contenente le variabili come name_ idRace horseName alla sessione
 
     for( var i = 0; i < req.session.jsonFavorites.gare.length; i++){
