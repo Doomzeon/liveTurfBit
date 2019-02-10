@@ -21,9 +21,10 @@ var favouriteHorses = require(__dirname+'/jsModules/favouritesHorsesUser.js');
 var favouriteHorsesRem = require(__dirname+'/jsModules/removeFavouriteHorseUser.js');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://admin:admin@horsebet-shard-00-00-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-01-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-02-vyr0z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=horseBet-shard-0&authSource=admin&retryWrites=true";
+const triggerDBRaceLive=require(__dirname+'/jsModules/triggerDBLiveMatch.js');
 
 
-
+const racePages=require(__dirname+'/jsModules/racePages.js')
 const liveBetting=require(__dirname+'/jsModules/liveBetting.js')
 var wss= new WebSocket({clientTracking: true ,port:3000});
 //              end   createSingleBetHtml
@@ -52,6 +53,9 @@ app.use(session({
 
 var sockets=[];
 var counterSock=0;
+
+triggerDBRaceLive.RaceLiveOnChange(wss);
+triggerDBRaceLive.RacesCountryGBOnChange(wss);
 
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
@@ -158,28 +162,6 @@ app.get('/',(req,res)=>{
       country:"Great Britain"
     })
 
-    /*MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("TurfBit");
-      dbo.collection("RaceLive").findOne({raceId:'GB-20181026-0'}, function(err, result) {
-        if (err) throw err;
-        db.close();
-        //console.log('bug con cavalli: '+result.horses)
-        res.render('liveBetting', {
-          jsonDataFirstLiveMatch:firstLiveMatchModule.tableElements(jsonDataMatches.races['GB-20181026-0']),
-          username:"",
-          totalBank:result.totalBank,
-          betMoneyOnHorse:result.horses,
-          raceId:'GB-20181026-0',
-          country:jsonDataMatches.country,
-          stadium:jsonDataMatches.races['GB-20181026-0'].Data.racecourse,
-          time:jsonDataMatches.races['GB-20181026-0'].Data.time
-        });
-      });
-    });
-*/
-
-
   }else if(coockie!=undefined){
     getUserInformationLoginAndSentFinalPage({mail:req.cookies.mail,password:req.cookies.password},req,res);
   }else if(req.session.mail!=undefined){
@@ -189,125 +171,8 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/liveBetting',(req,res)=>{
-
-      liveBetting.live(req,res,jsonDataMatches)
-  /*
-  var stad=req.query.stad;
-  var arrayStadiumsInfo=tableStadiums.StadiumHours(jsonDataMatches.races);
-  var arrayIdRace=req.query.arrayRaces;
-  var d=arrayIdRace.split(',')
-  console.log(JSON.parse(req.query.arrayRaces));
-
-  //console.log(arrayStadiumsInfo)
-  var idGaraIpo;
-  var betMoneyOnHorse;
-  var totBank;
-  if(req.session.mail!=undefined){
-    for(var i=0;i<arrayStadiumsInfo.length;i++){
-      if(arrayStadiumsInfo[i].stadium==stad){
-        idGaraIpo=arrayStadiumsInfo[i].orari;
-        break;
-      }
-    }
-      MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("TurfBit");
-
-        dbo.collection("RaceLive").findOne({raceId:'GB-20181026-0'}, function(err, result) {
-          if (err) throw err;
-          db.close();
-
-          betMoneyOnHorse=result.horses;
-          totBank=result.totalBank;
-          MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("TurfBit");
-            dbo.collection("Accounts").findOne({mail:req.session.mail,password:req.session.password}, function(err, result) {
-              if (err) throw err;
-              db.close();
-              res.render('liveBetting', {
-                jsonDataFirstLiveMatch:firstLiveMatchModule.tableElements(jsonDataMatches.races['GB-20181026-0']),
-                username:req.session.mail,
-                totalBank:totBank,
-                betMoneyOnHorse:betMoneyOnHorse,
-                raceId:'GB-20181026-0',
-                country:jsonDataMatches.country,
-                stadium:jsonDataMatches.races['GB-20181026-0'].Data.racecourse,
-                time:jsonDataMatches.races['GB-20181026-0'].Data.time,
-                arrayNextRaces:idGaraIpo,
-                money:result.money
-              });
-            })
-          })
-        });
-      });
-  }else if(req.cookies.mail!=undefined){
-    for(var i=0;i<arrayStadiumsInfo.length;i++){
-      if(arrayStadiumsInfo[i].stadium==stad){
-        idGaraIpo=arrayStadiumsInfo[i].orari;
-        break;
-      }
-    }
-      MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("TurfBit");
-        dbo.collection("RaceLive").findOne({raceId:'GB-20181026-0'}, function(err, result) {
-          if (err) throw err;
-          db.close();
-
-          betMoneyOnHorse=result.horses;
-          totBank=result.totalBank;
-          MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("TurfBit");
-            dbo.collection("Accounts").findOne({mail:req.cookies.mail,password:req.cookies.password}, function(err, result) {
-              if (err) throw err;
-              db.close();
-              res.render('liveBetting', {
-                jsonDataFirstLiveMatch:firstLiveMatchModule.tableElements(jsonDataMatches.races['GB-20181026-0']),
-                username:req.cookies.mail,
-                totalBank:totBank,
-                betMoneyOnHorse:betMoneyOnHorse,
-                raceId:'GB-20181026-0',
-                country:jsonDataMatches.country,
-                stadium:jsonDataMatches.races['GB-20181026-0'].Data.racecourse,
-                time:jsonDataMatches.races['GB-20181026-0'].Data.time,
-                arrayNextRaces:idGaraIpo,
-                money:result.money
-              });
-            })
-          })
-        });
-      });
-  }else{
-    for(var i=0;i<arrayStadiumsInfo.length;i++){
-      if(arrayStadiumsInfo[i].stadium==stad){
-        idGaraIpo=arrayStadiumsInfo[i].orari;
-        break;
-      }
-    }
-      MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("TurfBit");
-        dbo.collection("RaceLive").findOne({raceId:'GB-20181026-0'}, function(err, result) {
-          if (err) throw err;
-          db.close();
-          //console.log('bug con cavalli: '+result.horses)
-          res.render('liveBetting', {
-            jsonDataFirstLiveMatch:firstLiveMatchModule.tableElements(jsonDataMatches.races['GB-20181026-0']),
-            username:"",
-            totalBank:result.totalBank,
-            betMoneyOnHorse:result.horses,
-            raceId:'GB-20181026-0',
-            country:jsonDataMatches.country,
-            stadium:jsonDataMatches.races['GB-20181026-0'].Data.racecourse,
-            time:jsonDataMatches.races['GB-20181026-0'].Data.time,
-            arrayNextRaces:idGaraIpo
-          });
-        });
-      });
-
-  }*/
+  racePages.doAllStuffAndGeneratePage(req,res);
+    //  liveBetting.live(req,res,jsonDataMatches)
 })
 
 app.post('/endSession',(req,res)=>{
@@ -329,7 +194,7 @@ app.post('/login',(req,res)=>{
     dbo.collection("Accounts").findOne({mail:req.body.mail,password:req.body.password}, function(err, result) {
       if (err) throw err;
       db.close();
-    //  console.log(result)
+
       if(result!=null && result.confirmed==true){
         var check=req.body.checked;
         var cookie=req.cookies.mail;
@@ -358,7 +223,7 @@ app.get('/confirmRegistration',(req,res)=>{
       //console.log(moneyDB);
       dbo.collection("Accounts").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
-        //console.log("1 document updated");
+
         db.close();
       });
     });
@@ -406,10 +271,10 @@ app.listen(8080, function () {
     dbo.collection("GreatBritain").findOne({},function(err, res) {
       if (err) throw err;
       db.close();
-      console.log(res)
+      //console.log(res)
       console.log('///////')
       jsonDataMatches=res;
-      loadFirstLiveMatchToDb(jsonDataMatches.races['GB-20181026-0'])
+      loadFirstLiveMatchToDb(jsonDataMatches.races['GB-20181026-0'],'GB-20181026-0')
 
     });
   });
@@ -497,61 +362,38 @@ function getUserInformationLoginAndSentFinalPage(obj,req,res){
               country:"GreatBritain"
 
             })
-
-            /*res.render('liveBetting', {
-                jsonDataFirstLiveMatch:firstLiveMatchModule.tableElements(jsonDataMatches.races['GB-20181026-0']),
-                username:
-                money:moneyUtente,
-                totalBank:result.totalBank,
-                betMoneyOnHorse:result.horses,
-                raceId:'GB-20181026-0',
-                country:jsonDataMatches.country,
-                stadium:jsonDataMatches.races['GB-20181026-0'].Data.racecourse,
-                time:jsonDataMatches.races['GB-20181026-0'].Data.time
-              });*/
           }else{
-          //  console.log('bug cavalli : '+result.horses)
 
-          res.render('index',{
-            stadiums:tableStadiums.StadiumHours(jsonDataMatches.races),
-            username:req.cookies.mail,
-            money:moneyUtente,
-            country:"GreatBritain"
+            res.render('index',{
+              stadiums:tableStadiums.StadiumHours(jsonDataMatches.races),
+              username:req.cookies.mail,
+              money:moneyUtente,
+              country:"GreatBritain"
 
-          })
+            })
 
-            /*res.render('liveBetting', {
-                jsonDataFirstLiveMatch:firstLiveMatchModule.tableElements(jsonDataMatches.races['GB-20181026-0']),
-                username:req.cookies.mail,
-                money:moneyUtente,
-                totalBank:result.totalBank,
-                betMoneyOnHorse:result.horses,
-                raceId:'GB-20181026-0',
-                country:jsonDataMatches.country,
-                stadium:jsonDataMatches.races['GB-20181026-0'].Data.racecourse,
-                time:jsonDataMatches.races['GB-20181026-0'].Data.time
-              });*/
           }
         });
       });
-
-
     });
   });
 }
 
-function loadFirstLiveMatchToDb(race){
+function loadFirstLiveMatchToDb(race,id){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("TurfBit");
-    dbo.collection("RaceLive").findOne({raceId:'GB-20181026-0'}, function(err, result) {
+    dbo.collection("RaceLive").findOne({raceId:id}, function(err, result) {
       if (err) throw err;
       db.close();
       if(result==null){
         var obj={
-          raceId:'GB-20181026-0',
+          raceId:id,
           totalBank:0,
           status:'Active',
+          comment:race.Data.tip,
+          stadium:race.Data.racecourse,
+          time:race.Data.time,
           horses:[]
         };
 

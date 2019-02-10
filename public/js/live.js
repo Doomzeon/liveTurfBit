@@ -6,6 +6,7 @@ ws.onopen = function () {
 }
 // event emmited when receiving message
 ws.onmessage = function (ev) {
+
   var d=JSON.parse(ev.data);
   if(d.event=='changeHorseBank_totalBank'){
     $('.moneyTot_'+d.horseName).text(d.horseBankTot+'$');
@@ -31,8 +32,12 @@ ws.onmessage = function (ev) {
     $('.seconds').text(d.seconds);
   }else if(d.event=='raceEnded'){
     $('.betButton').prop("disabled",true);
-    $('.matchInfoTime').html('');
-    $('.matchInfoTime').html('<p>Match is ended</p>')
+
+    $('.liveTag'+d.idRace).css('display','none');
+  }else if(d.event=='raceStart'){
+    $('.betButton').prop("disabled",false);
+
+    $('.liveTag'+d.idRace).css('display','block')
   }
 }
 
@@ -200,18 +205,18 @@ function betting(horse,raceId,button){
         $('.popUpBetRow').css('display','block');
       $('.popUpBetRow').animate({
           opacity: 1
-      }, 300,function(){
+      }, 200,function(){
         setTimeout(function(){
           $('.popUpBetRow').css('display','block');
           $('.popUpBetRow').animate({
               opacity: 0
-          }, 300,function(){
+          }, 200,function(){
             $('.popUpBetRow').css('display','none');
             $('.horseNamePopBet').text('');
             $('.timePopBet').text('');
             $('.moneyPopBet').text('');
           });
-        }, 2000);
+        }, 1000);
 
       });
     }

@@ -196,13 +196,14 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
 }
 .liveTag{
   font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-  position:absolute;
-  top:2px;
-  left:6px;
+  position:relative;
+  top:-80px;
+  left:0px;
   color:red;
   border:red solid 1px;
-  padding:3px 11px 3px 11px;
-  border-radius:5px;font-size:12px
+  border-radius:5px;font-size:12px;
+  text-align: center;
+  padding:3px 6px 3px 6px
 }
 .nextRaceS{
   background:#42ab09 !important;
@@ -223,16 +224,11 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 
-
-
-
-<%if(jsonFavorites.length==1){%>
-  <td><% jsonFavorites[i].lenght%></td>
-</tr>
-<%}else if(jsonFavorites.length==2){%>
-  <td><% jsonFavorites[i].lenght%></td>
-  <td><% jsonFavorites[i+1].lenght%></td>
-</tr>
-<%}else if(){%>
-
-<%}%>
+.dollarStakeInpt{
+  position:relative;
+  top:-30px;
+  left:-70px;
+  color:black;
+  padding:8px 10px 10px 0;
+  border-right:solid #ced4da 1px
+}

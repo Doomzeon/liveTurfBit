@@ -218,11 +218,17 @@
           </div>
           <div class="col-5 col-sm-5 col-md-5" style="text-align:center;padding:10px;color:white;font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;">
 
-            Total stake: $<br> <span class="moneyTotalBank"><%= totalBank %></span>
+            Total stake: <br>$ <span class="moneyTotalBank"><%= totalBank %></span>
+
           </div>
           <div class="col-6 col-sm-6 col-md-6" style="text-align:center;padding:10px;color:white;padding-left:5px;padding-right:5px">
-
+            <div class="input-group mb-3">
+              <div class="input-group-prepend" style="border-top-left-radius:.32rem !important;border-bottom-left-radius:.32rem !important">
+                <span class="input-group-text" id="basic-addon1" > $</i></span>
+              </div>
               <input type="number" class="form-control inputForm stakeInsered" placeholder="Insert Stake" aria-label="Username" aria-describedby="basic-addon1" style="text-align:center;">
+            </div>
+
 
           </div>
         </div>
@@ -271,28 +277,63 @@
     <div class="col-12 col-sm-12 col-md-12" style="margin-top:0;margin-bottom: 0;;padding:0;overflow-y:hidden !important;overflow-x:scroll;display:flex">
 
 
-         <ul style="list-style:none;display:flex;margin:0;padding:28px 0 23px 0;">
-            <%for (var i=0;i<arrayNextRaces.length;i++){%>
+      <%if(jsonDataFirstLiveMatch == null){%>
+        <ul style="list-style:none;display:flex;margin:0;padding:28px 0 23px 0;">
+           <%for (var i=0;i<arrayNextRaces.length;i++){%>
 
-              <%if(i==0 ){%>
-                <%if(raceId==arrayNextRaces[i].idGara){%>
-                  <li class="nextRace0 nextRaceS" style="">
-                  <%}else{%>
-                    <li class="nextRace0" style="">
-                  <%}%>
+             <%if(i==0 ){%>
+               <%if(liveRaceId==arrayNextRaces[i].idGara){%>
+                 <li class="nextRace0 nextRaceS" style="">
+                 <%}else{%>
+                   <li class="nextRace0" style="">
+                 <%}%>
 
-                <div class="liveTag" style="">
-                  LIVE
-                </div>
-                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;font-size:11pxg"><%=arrayNextRaces[i].ora%></span></a></li>
-              <%}else if(raceId==arrayNextRaces[i].idGara){%>
-                <li class="nextRace nextRaceS" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
-              <%}else{%>
-              <li class="nextRace" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
+               <div class="liveTag" style="">
+                 LIVE
+               </div>
+               <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;font-size:11pxg"><%=arrayNextRaces[i].ora%></span></a></li>
+             <%}else if(liveRaceId==arrayNextRaces[i].idGara){%>
+               <li class="nextRace nextRaceS" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
+             <%}else{%>
+             <li class="nextRace" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
 
-                <%}%>
-            <%}%>
-          </ul>
+               <%}%>
+           <%}%>
+         </ul>
+      <%}else{%>
+        <ul style="list-style:none;display:flex;margin:0;padding:28px 0 23px 0;">
+           <%for (var i=0;i<arrayNextRaces.length;i++){%>
+
+             <%if(i==null ){%>
+               <%if(liveRaceId==arrayNextRaces[i].idGara){%>
+                 <li class="nextRace0 nextRaceS" style="">
+                   <div class="liveTag" style="">
+                     LIVE
+                   </div>
+                 <%}else{%>
+                   <li class="nextRace0" style="">
+                 <%}%>
+
+               <div class="liveTag" style="display:none !important">
+                 LIVE
+               </div>
+               <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;font-size:11pxg"><%=arrayNextRaces[i].ora%></span></a></li>
+             <%}else if(liveRaceId==arrayNextRaces[i].idGara){%>
+               asdasd
+               <li class="nextRace nextRaceS" style="">
+                 <div class="liveTag" style="">
+                   LIVE
+                 </div>
+                  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
+             <%}else{%>
+             <li class="nextRace" style="">  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a></li>
+
+               <%}%>
+           <%}%>
+         </ul>
+      <%}%>
+
+
 
     </div>
   </div>
@@ -377,7 +418,7 @@
             <thead>
               <tr >
                 <th style="text-align: center;">#</th>
-                <th ><span style="margin-left:10px">Horse</span>  <span style="margin-left:70px">Stake</span></th>
+                <th ><span style="margin-left:10px">Horse</span>  <span style="margin-left:100px">Stake</span></th>
 
                 <th style="padding:0px;padding-right:3px">
                   <div class="form-check" style="margin-bottom: 8px;">
