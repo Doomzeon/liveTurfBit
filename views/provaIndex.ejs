@@ -173,29 +173,36 @@
 </div>
 
   <div class="container-fluid" style="background:white;">
-    <div class="row">
-      <div class="col-12 col-sm-12 col-md-12">
-        <div class="row" style="background:#373737;color:white">
-          <div class="col-12 col-sm-12 col-md-12" style="padding: 15px"><img src="./img/en.jpg" alt="flag" width="20" height="18" style="margin-right:15px"> <%= country%></div>
-        </div>
 
-          <div class="row" style="background:;color:black">
-            <div class="col-12 col-sm-12 col-md-12" style="padding:0">
-              <ul style="list-style:none;padding:0">
-                <%for(var i=0;i<stadiums.length;i++){%>
-                  <%if(i+1==stadiums.length){%>
-                    <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadium%>&arrayRaces=<%=JSON.stringify(stadiums[i].orari)%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadium%></a></li>
-                  <%}else{%>
-                    <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadium%>&arrayRaces=<%=JSON.stringify(stadiums[i].orari)%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadium%></a></li>
-                  <%}%>
-                <%}%>
-              </ul>
-            </div>
+    <% for(var i=0;i<stadiums.length;i++){%>
+
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <div class="row" style="background:#373737;color:white">
+
+            <div class="col-12 col-sm-12 col-md-12" style="padding: 15px"><img src="./img/en.jpg" alt="flag" width="20" height="18" style="margin-right:15px"> <%= stadiums[i].country%></div>
           </div>
 
+            <div class="row" style="background:;color:black">
+              <div class="col-12 col-sm-12 col-md-12" style="padding:0">
+                <ul style="list-style:none;padding:0">
+                  <%for(var a=0;a<stadiums[i].stadiums.length;a++){%>
+                    <%if(a+1==stadiums.length){%>
+                      <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadiums[a].stadium%>&country=<%=stadiums[i].country%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadiums[a].stadium%></a></li>
+                    <%}else{%>
+                      <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadiums[a].stadium%>&country=<%=stadiums[i].country%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadiums[a].stadium%></a></li>
+                    <%}%>
+                  <%}%>
+                </ul>
+              </div>
+            </div>
 
+
+        </div>
       </div>
-    </div>
+
+    <%}%>
+
 
 
   </div>

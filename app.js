@@ -22,6 +22,8 @@ var favouriteHorsesRem = require(__dirname+'/jsModules/removeFavouriteHorseUser.
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://admin:admin@horsebet-shard-00-00-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-01-vyr0z.gcp.mongodb.net:27017,horsebet-shard-00-02-vyr0z.gcp.mongodb.net:27017/test?ssl=true&replicaSet=horseBet-shard-0&authSource=admin&retryWrites=true";
 const triggerDBRaceLive=require(__dirname+'/jsModules/triggerDBLiveMatch.js');
+const helpModules=require(__dirname+'/jsModules/helpfulModulDB.js');
+const homePageGen=require(__dirname+'/jsModules/generateWelcomePage.js');
 
 
 const racePages=require(__dirname+'/jsModules/racePages.js')
@@ -152,8 +154,9 @@ app.get('/myBets',(req,res)=>{
 })
 
 app.get('/',(req,res)=>{
+  homePageGen.generateHomePage(req,res);
   //transporter.sendMail();
-
+/*
   var coockie=req.cookies.mail;
   if(coockie==undefined && req.session.mail==undefined){
     res.render('index',{
@@ -167,7 +170,7 @@ app.get('/',(req,res)=>{
   }else if(req.session.mail!=undefined){
     getUserInformationLoginAndSentFinalPage({mail:req.session.mail,password:req.session.password},req,res);
   }
-
+*/
 });
 
 app.get('/liveBetting',(req,res)=>{
@@ -258,6 +261,7 @@ app.post('/register',(req,res)=>{
   });
 })
 
+  //helpModules.addStadiumsOfCountryDB();
 app.listen(8080, function () {
 
   console.log('Server in ascolto sulla porta 8080');
@@ -275,7 +279,6 @@ app.listen(8080, function () {
       console.log('///////')
       jsonDataMatches=res;
       loadFirstLiveMatchToDb(jsonDataMatches.races['GB-20181026-0'],'GB-20181026-0')
-
     });
   });
 
@@ -351,7 +354,7 @@ function getUserInformationLoginAndSentFinalPage(obj,req,res){
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("TurfBit");
-        dbo.collection("RaceLive").findOne({raceId:'GB-20181026-0'}, function(err, result) {
+        dbo.collection("RaceLive").find({raceId:'GB-20181026-0'}, function(err, result) {
           if (err) throw err;
           db.close();
           if(req.session.mail != undefined){

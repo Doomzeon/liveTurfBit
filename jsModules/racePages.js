@@ -15,15 +15,48 @@ exports.doAllStuffAndGeneratePage=function(req,res){
 
     console.log('string id')
     firstIdRaceGenerate=req.query.arrayRaces;
+    checkRace(req,res,firstIdRaceGenerate)
 
   }else{
 
     console.log('array ids')
-    idsRaces  =JSON.parse(req.query.arrayRaces)
-    firstIdRaceGenerate=idsRaces[0].idGara;
+    idsRaces  = //JSON.parse(req.query.arrayRaces)
+    query=[
+          {
+            '$match': {
+              'country':req.query.country
+            }
+          }, {
+            '$unwind': {
+              'path': '$stadiums'
+            }
+          }, {
+            '$match': {
+              'stadiums.stadium':req.query.stad
+            }
+          },
+          {
+            '$project':{
+              "stadiums.orari":1
+            }
+          }
+        ]
+        MongoClient.connect(url, function(err, db) {
+                    if (err) throw err;
+                    var dbo = db.db("TurfBit");
+
+                    dbo.collection("StadiumsCountry").aggregate(query).toArray(function(err, resu) {
+                      if (err) throw err;
+                      db.close();
+                      console.log('resu[0].orari')
+                      console.log(resu[0].stadiums.orari[0].idGara)
+                      firstIdRaceGenerate=resu[0].stadiums.orari[0].idGara;
+                      checkRace(req,res,firstIdRaceGenerate)
+                    });
+                  });
+
 
   }
-  checkRace(req,res,firstIdRaceGenerate)
 }
 
 
@@ -248,6 +281,7 @@ function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,l
           }
         }
       ]
+      console.log('iddd'+firstIdRaceGenerate);
         MongoClient.connect(url, function(err, db) {
           if (err) throw err;
           var dbo = db.db("TurfBit");
