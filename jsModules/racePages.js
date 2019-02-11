@@ -259,10 +259,13 @@ function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,l
 
       if(req.session.jsonFavorites==undefined){
         favourites=null;
-      }else if(req.session.jsonFavorites!=undefined){
+      }else if(req.session.jsonFavorites!=undefined && req.session.jsonFavorites.gare[0].arrayHorses.length>0){
+        console.log('req.session.jsonFavorites')
+        console.log(req.session.jsonFavorites)
+          console.log('req.session.jsonFavorites')
         for(var i=0;i<req.session.jsonFavorites.gare.length;i++){
-          //console.log('asd'+idGaraGB)
-          if(req.session.jsonFavorites.gare[i].idRace==idGaraGB){
+          console.log('asd'+firstIdRaceGenerate)
+          if(req.session.jsonFavorites.gare[i].idRace==firstIdRaceGenerate){
             favourites=req.session.jsonFavorites.gare[i].arrayHorses
             sizeFav=req.session.jsonFavorites.gare[i].arrayHorses.length
           }
