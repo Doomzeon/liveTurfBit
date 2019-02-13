@@ -85,6 +85,7 @@
                    <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
                  </div>
                  <input type="password" class="form-control inputForm passwordReg" name="password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" required>
+
                </div>
 
                <div class="input-group mb-3">
@@ -92,9 +93,12 @@
                    <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
                  </div>
                  <input type="password" class="form-control inputForm passwordRegConfirm" placeholder="Confirm password" aria-label="Username" aria-describedby="basic-addon1">
-
+                 <div id="pswd_info" style="display:none">
+                   <p>Password must have:<br> <span id="numberPass"><strong>one number</strong></span>,<br> <span id="capLPass"><strong>one capital letter</strong></span>, <br> must be at <span id="8charPass"><strong>least 8 charachters</strong></span></p>
+               </div>
                </div>
                <p id='message'></p>
+
                <button type="submit" class="btn btn-primary formRegBtn" style="float:right">Register</button>
              </div>
            </div>
@@ -107,23 +111,29 @@
     <ul style="list-style:none;display:block;padding:0">
       <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="loginBtn" style=""><i class="fas fa-sign-in-alt" style="margin-right:20px;font-size:20px"></i> Login</button></li>
       <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button " id="regBtn" style="s"><i class="fas fa-registered" style="margin-right:20px;font-size:20px"></i> Register</button></li>
-      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
-      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button "><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> Info</a></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:18px;font-size:20px"></i> Home</a></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/liveBetting" style=""><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> <span style="">Info</span></a></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button Deposit"><i class="far fa-money-bill-alt" style="margin-right:15px !important;font-size:20px"></i> <span style="">Deposit</span></button></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button Withdraw"><i class="fas fa-money-check-alt" style="margin-right:15px !important;font-size:20px"></i> <span style="">Withdraw</span></button></li>
 
     </ul>
 
 
+
     <%}else{%>
       <ul style="list-style:none;display:block;padding:0">
-        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:20px;font-size:20px;width:20px;margin-right:25px"></i><%= username%></button></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:20px;font-size:20px"></i> Your bets</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button "><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> Info</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:20px;font-size:20px"></i> Quit</button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:22px;font-size:20px;width:20px;margin-right:25px;margin-left:3px"></i><%= username%></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:25px;font-size:20px"></i> Your bets</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:17px;font-size:25px"></i> Home</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px !important;font-size:20px"></i> Info</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button "><i class="far fa-money-bill-alt" style="margin-right:20px!important;font-size:20px"></i> <span style="">Deposit</span></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button "><i class="fas fa-money-check-alt" style="margin-right:20px!important;font-size:20px"></i> <span style="">Withdraw</span></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:25px;font-size:20px"></i> Quit</button></li>
 
       </ul>
 
        <!-- The Modal login-->
+
       <%}%>
 
 
@@ -135,22 +145,23 @@
 
   <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()" style="padding-top:0!important;color:white !important;background-color:#30415d !important;">&#9776;</button>
     <a href="/"><i class="fas fa-home" style="margin-right:18px;font-size:24px;color:white"></i></a>
-    <h3 class="navbar-brand" href="/" style="margin-left:30px;color:white;font-family:'Lucida Console', Monaco, monospace">TurfLive</h3>
+    <h3 class="navbar-brand" href="/" style="margin-left:30px;color:white;font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;">TurfLive</h3>
     <div class="userInfo">
       <% if(username!=""){%>
-        <p style="position:absolute;top:10px;right:10px;color:white;font-size:14px" class="moneyUser">Your balance :<br> <span style="margin-left:15px"><%= money%>$<span></p>
+        <p class= "" style="position:absolute;top:10px;right:10px;color:white;font-size:14px;" >Balance :  <br>$ <span style="" class="moneyUser"><%= money%><span></p>
 
 
       </div>
       </div>
-      <div class="" style="background:#AB987A;padding-top:2px"></div>
 
+      <div class="" style="background:#AB987A;padding-top:6px"></div>
 <%}else{%>
   <button class="w3-bar-item w3-button " id="signIn" style="background:none;border:none;color:white;font-size:14px; position:absolute;right:1px;top:10px;"><i class="fas fa-key" style="font-size:20px;color:"></i> </button>
 
       </div>
       </div>
-      <div class=""style="background:#AB987A;padding-top:2px"></div>
+
+      <div class="" style="background:#AB987A;padding-top:6px"></div>
       <div class="container-fluid " style="">
         <div class="row"  style="background-color:#30415d !important;height:50px;position:relative;padding:0 !important;">
 
@@ -162,7 +173,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-sm-12 col-md-12" style="background:#AB987A;padding-top:2px">
+          <div class="col-12 col-sm-12 col-md-12" style="background:#AB987A;padding-top:6px">
 
           </div>
         </div>

@@ -15,11 +15,10 @@ exports.RaceLiveOnChange = function (wss){
 
     changeStream.on('change', next => {
       // process next document
-      console.log( typeof next.fullDocument.status)
 
-      if(next.fullDocument.status == 'Ended'){
+      if(next.fullDocument!=undefined && next.fullDocument.status == 'Ended'){
         wss.broadcast(JSON.stringify({event:'raceEnded',idRace:next.fullDocument.raceId}))
-      }else if(next.fullDocument.status == 'Active'){
+      }else if(next.fullDocument!=undefined && next.fullDocument.status == 'Active'){
         wss.broadcast(JSON.stringify({event:'raceStart',idRace:next.fullDocument.raceId}))
       }
 
@@ -39,10 +38,9 @@ exports.RacesCountryGBOnChange = function (wss){
    //console.log(changeStream)
     changeStream.on('change', next => {
       // process next document
-      console.log( next)
       //load race to collection RaceLive
       //broadcast to client that the race is started
-      if(next.fullDocument.status=='Active'){
+      if(next.fullDocument!=undefined &&next.fullDocument.status=='Active'){
         query=[
         {
           '$match': {

@@ -456,10 +456,10 @@ function getNameOfImage(horse,horses){
 
 function eventBet(clientJSON,wss,ws){
    changeHorseTotBankDBHTML(clientJSON.raceId,clientJSON.horse,clientJSON.moneyBet,wss);
-   changeUserBalanceDBHTML(clientJSON.mailUser,ws,clientJSON.moneyBet,clientJSON.datetime,clientJSON.raceId,clientJSON.horse,clientJSON.stadium,clientJSON.country);
+   changeUserBalanceDBHTML(clientJSON.mailUser,ws,clientJSON.moneyBet,clientJSON.datetime,clientJSON.raceId,clientJSON.horse,clientJSON.stadium,clientJSON.country,clientJSON.date);
 }
 
-function changeUserBalanceDBHTML(mailUs,ws,moneyBetted,datetime,raceId,horse,stadium,country){
+function changeUserBalanceDBHTML(mailUs,ws,moneyBetted,datetime,raceId,horse,stadium,country,date){
   var query=[
   {
     '$match': {
@@ -498,7 +498,7 @@ function changeUserBalanceDBHTML(mailUs,ws,moneyBetted,datetime,raceId,horse,sta
           MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("TurfBit");
-            dbo.collection("BetsOfUsers").insertOne({mail:mailUs,moneyBetted:moneyBetted,time:datetime,raceId:raceId,horse:horse,stadium:stadium,country:country,status:'unknown'}, function(err, res) {
+            dbo.collection("BetsOfUsers").insertOne({mail:mailUs,moneyBetted:moneyBetted,time:datetime,raceId:raceId,horse:horse,stadium:stadium,country:country,date:date}, function(err, res) {
               if (err) throw err;
               //console.log("1 document updated");
               db.close();

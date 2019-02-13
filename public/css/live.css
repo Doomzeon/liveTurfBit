@@ -232,3 +232,41 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   padding:8px 10px 10px 0;
   border-right:solid #ced4da 1px
 }
+
+
+#pswd_info {
+    position:absolute;
+    bottom: -70px; /* IE Specific */
+    left:0;
+    width:250px;
+    padding:15px;
+    background:#fefefe;
+    font-size:11px;
+    border-radius:5px;
+    box-shadow:0 1px 3px #ccc;
+    border:1px solid #ddd;
+}
+#pswd_info::before {
+    content: "\25B2";
+    position:absolute;
+    top:-12px;
+    left:45%;
+    font-size:14px;
+    line-height:14px;
+    color:#ddd;
+    text-shadow:none;
+    display:block;
+}
+
+
+#message{
+  margin:0;
+  position: absolute;
+  font-size: 13px
+}
+.invalid{
+  color:red;
+}
+.valid{
+  color:green;
+}

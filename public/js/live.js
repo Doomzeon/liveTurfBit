@@ -12,7 +12,7 @@ ws.onmessage = function (ev) {
     $('.moneyTot_'+d.horseName).text(d.horseBankTot+'$');
     $('.moneyTotalBank').text(d.totalBank);
     //
-    var width=173;
+    var width=138;
     for(var i=0;i<d.arSortHorsPos.length;i++){
       var widthfINAL=width*parseInt(d.arSortHorsPos[i].percent)/100;
       $('.line_'+d.arSortHorsPos[i].horse).stop(true, true).animate({
@@ -43,19 +43,88 @@ ws.onmessage = function (ev) {
 
 $( document ).ready(function() {
 
+
+  $('.Deposit, .Withdraw').click(function(){
+    $('#login').css('display','block');
+
+  })
+
+
+
+
   $('.showInfoUser').click(function(){
     $('.a').show();
   })
 
   $('[data-toggle="popover"]').popover();
 
-  $('.passwordReg, .passwordRegConfirm').on('keyup', function () {
-    if ($('.passwordReg').val() == $('.passwordRegConfirm').val()) {
-      $('#message').html('Password are equals').css('color', 'green');
-    } else
-      $('#message').html("Password aren't equals").css('color', 'red');
+//          controllo sulla password di registrazione
+  var controlloPass;
+  var controlloPassConf;
+
+  $('.passwordReg').keyup(function() {
+    if($('#message').is(':visible')){
+      $('#message').css('display','none')
+    }
+
+    $('#pswd_info').css('display','block')
+    var pswd = $(this).val();
+
+    if ( pswd.length < 8 ) {
+      $('#8charPass').removeClass('valid').addClass('invalid');
+    }else {
+        $('#8charPass').removeClass('invalid').addClass('valid');
+    }
+
+    /*if ( pswd.match(/[A-z]/) ) {
+      $('#letter').removeClass('invalid').addClass('valid');
+    }else {
+        $('#letter').removeClass('valid').addClass('invalid');
+    }*/
+
+    //validate capital letter
+    if( pswd.match(/[A-Z]/) ) {
+        $('#capLPass').removeClass('invalid').addClass('valid');
+    }else {
+        $('#capLPass').removeClass('valid').addClass('invalid');
+    }
+
+    //validate number
+    if( pswd.match(/\d/) ) {
+        $('#numberPass').removeClass('invalid').addClass('valid');
+    }else {
+        $('#numberPass').removeClass('valid').addClass('invalid');
+    }
+
+    if($('#numberPass').hasClass('valid')&&$('#capLPass').hasClass('valid')&&$('#8charPass').hasClass('valid')){
+        controlloPass=true;
+    }else{
+      controlloPass=false;
+    }
+  }).focus(function() {
+    if($('#message').is(':visible')){
+      $('#message').css('display','none')
+    }
+    $('#pswd_info').css('display','block')
+  }).blur(function() {
+    $('#pswd_info').css('display','none')
   });
 
+
+  $('.passwordRegConfirm').on('keyup', function () {
+    if ($('.passwordReg').val() == $('.passwordRegConfirm').val()) {
+      $('#message').css('display','block')
+      $('#message').html('Password are equals').css('color', 'green');
+      controlloPassConf=true;
+    } else{
+      $('#message').css('display','block')
+      $('#message').html("Password aren't equals").css('color', 'red');
+      controlloPassConf=false;
+    }
+  });
+
+
+///           fine password
     $('.endSess').click(function(){
         $.ajax({
             url: '/endSession',
@@ -98,11 +167,7 @@ $( document ).ready(function() {
     });
 
     $('.formRegBtn').click(function(){
-      var pass=$('.passwordReg').val();
-      var confPass=$('.passwordRegConfirm').val();
-      if(pass!=confPass){
-        alert("Passwords aren't equals");
-      }else{
+      if(controlloPass==true&&controlloPassConf==true){
         var name=$('.nameReg').val();
         var surname=$('.surnameReg').val();
         var mail=$('.mailReg').val();
@@ -125,6 +190,8 @@ $( document ).ready(function() {
               }
             }
           });
+      }else{
+        alert("Please insert a valide password");
       }
     });
 
@@ -192,7 +259,8 @@ function betting(horse,raceId,button){
         mailUser:""+$('#usernameLogged').text(),
         datetime:currentdate.getHours()+':'+currentdate.getMinutes()+':'+currentdate.getSeconds()+':'+currentdate.getMilliseconds(),
         stadium:$('.stadiumName').text(),
-        country:$('.counrtyName').text()
+        country:$('.counrtyName').text(),
+        date:currentdate.getFullYear()+'/'+currentdate.getMonth()+'/'+currentdate.getDay()
       };
       ws.send(JSON.stringify(obj));
 

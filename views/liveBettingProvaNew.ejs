@@ -85,6 +85,7 @@
               <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
             </div>
             <input type="password" class="form-control inputForm passwordReg" name="password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" required>
+
           </div>
 
           <div class="input-group mb-3">
@@ -92,11 +93,15 @@
               <span class="input-group-text" id="basic-addon1" > <i class="fas fa-key"></i></span>
             </div>
             <input type="password" class="form-control inputForm passwordRegConfirm" placeholder="Confirm password" aria-label="Username" aria-describedby="basic-addon1">
-
+            <div id="pswd_info" style="display:none">
+              <p>Password must have:<br> <span id="numberPass"><strong>one number</strong></span>,<br> <span id="capLPass"><strong>one capital letter</strong></span>, <br> must be at <span id="8charPass"><strong>least 8 charachters</strong></span></p>
+          </div>
           </div>
           <p id='message'></p>
+
           <button type="submit" class="btn btn-primary formRegBtn" style="float:right">Register</button>
         </div>
+
       </div>
 
     </div>
@@ -140,6 +145,8 @@
       <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button " id="regBtn" style="s"><i class="fas fa-registered" style="margin-right:20px;font-size:20px"></i> Register</button></li>
       <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:18px;font-size:20px"></i> Home</a></li>
       <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/liveBetting" style=""><i class="fas fa-question-circle" style="margin-right:20px;font-size:20px"></i> <span style="">Info</span></a></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button Deposit"><i class="far fa-money-bill-alt" style="margin-right:15px !important;font-size:20px"></i> <span style="">Deposit</span></button></li>
+      <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button Withdraw"><i class="fas fa-money-check-alt" style="margin-right:15px !important;font-size:20px"></i> <span style="">Withdraw</span></button></li>
 
     </ul>
 
@@ -147,11 +154,13 @@
 
     <%}else{%>
       <ul style="list-style:none;display:block;padding:0">
-        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:20px;font-size:20px;width:20px;margin-right:25px;margin-left:3px"></i><%= username%></button></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:20px;font-size:20px"></i> Your bets</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:20px;font-size:20px"></i> Home</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px;font-size:20px"></i> Info</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:20px;font-size:20px"></i> Quit</button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:22px;font-size:20px;width:20px;margin-right:25px;margin-left:3px"></i><%= username%></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:25px;font-size:20px"></i> Your bets</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:17px;font-size:25px"></i> Home</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px !important;font-size:20px"></i> Info</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button "><i class="far fa-money-bill-alt" style="margin-right:20px!important;font-size:20px"></i> <span style="">Deposit</span></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button "><i class="fas fa-money-check-alt" style="margin-right:20px!important;font-size:20px"></i> <span style="">Withdraw</span></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:25px;font-size:20px"></i> Quit</button></li>
 
       </ul>
 
@@ -187,12 +196,13 @@
 
             Total stake: <br> $ <span class="moneyTotalBank"><%= totalBank %></span>
           </div>
-          <div class="col-5 col-sm-5 col-md-5" style="text-align:center;padding:10px;color:white">
+          <div class="col-6 col-sm-6 col-md-6" style="text-align:center;padding:10px;color:white">
             <div class="input-group mb-3">
-              <input type="number" class="form-control inputForm stakeInsered" placeholder="Insert Stake" aria-label="Username" aria-describedby="basic-addon1">
+              <div class="input-group-prepend" style="border-top-left-radius:.32rem !important;border-bottom-left-radius:.32rem !important">
+                <span class="input-group-text" id="basic-addon1" > $</i></span>
+              </div>
+              <input type="number" class="form-control inputForm stakeInsered" placeholder="Insert Stake" aria-label="Username" aria-describedby="basic-addon1" style="text-align:center;">
             </div>
-          </div>
-          <div class="col-1 col-sm-1 col-md-1" >
           </div>
         </div>
       </div>
@@ -444,15 +454,15 @@
 
                                     <div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot" style="position:relative;top:-12px;left:35%"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div>
                                     <div class="lineDiv" style="position: relative;top:-10px;left:-7px;background:#f7f7f7;width:140px;height:12px;padding:0;margin-right: 30px;border:1px solid #e5e3e3;border-radius:10px">
-                                      <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:<%= parseInt((parseInt(betMoneyOnHorse[i].betMoneyTotal)/totalBank*100))*173/100 %>px ;"></div>
+                                      <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:<%= parseInt((parseInt(betMoneyOnHorse[i].betMoneyTotal)/totalBank*100))*138/100 %>px ;"></div>
                                     </div>
-
                                 <%}%>
                           <%}else{%>
-                            <div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot" style="position:relative;top:-12px;left:40%"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div>
+                            <div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot" style="position:relative;top:-12px;left:40%"><%= betMoneyOnHorse[i].betMoneyTotal%> $ </div>
                             <div class="lineDiv" style="position: relative;top:-10px;left:-7px;background:#f7f7f7;width:140px;height:12px;padding:0;margin-right: 20px;border:1px solid #e5e3e3;border-radius:10px">
                             <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:0px ;"></div>
                           </div>
+
                           <%}%>
 
 
@@ -526,8 +536,10 @@
 
                                         <div class="moneyTot_<%=betMoneyOnHorse[i].name%> moneyTot" style="position:relative;top:-12px;left:35%"><%= betMoneyOnHorse[i].betMoneyTotal%> $</div>
                                         <div class="lineDiv" style="position: relative;top:-10px;left:-7px;background:#f7f7f7;width:140px;height:12px;padding:0;margin-right: 30px;border:1px solid #e5e3e3;border-radius:10px">
-                                          <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:<%= parseInt((parseInt(betMoneyOnHorse[i].betMoneyTotal)/totalBank*100))*173/100 %>px ;"></div>
+                                          <div class="line line_<%=betMoneyOnHorse[i].name%>" style="width:<%= parseInt((parseInt(betMoneyOnHorse[i].betMoneyTotal)/totalBank*100))*138/100 %>px ;"></div>
                                         </div>
+                                        <%=betMoneyOnHorse[i].betMoneyTotal%>
+                                        <%=totalBank%>
 
                                     <%}%>
                               <%}else{%>
