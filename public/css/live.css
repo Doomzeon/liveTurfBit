@@ -56,6 +56,15 @@ background: #f7f7f7;
   color:white;
   margin:10px !important;
 }
+button:disabled,
+button[disabled]{
+  color: #666666;
+    border:#30415d 1px solid;
+    background: #2f7284;
+    color:white;
+    margin:10px !important;
+}
+
 .formLogBtn,.formRegBtn,.userBtn {
   border:#30415d 1px solid;
   background: #30415d;

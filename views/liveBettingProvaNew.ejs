@@ -155,11 +155,11 @@
     <%}else{%>
       <ul style="list-style:none;display:block;padding:0">
         <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button" id="usernameLogged" ><i class="fas fa-user" style="margin-right:22px;font-size:20px;width:20px;margin-right:25px;margin-left:3px"></i><%= username%></button></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:25px;font-size:20px"></i> Your bets</a></li>
         <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/"><i class="fas fa-home" style="margin-right:17px;font-size:25px"></i> Home</a></li>
-        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px !important;font-size:20px"></i> Info</a></li>
         <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button "><i class="far fa-money-bill-alt" style="margin-right:20px!important;font-size:20px"></i> <span style="">Deposit</span></button></li>
         <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button "><i class="fas fa-money-check-alt" style="margin-right:20px!important;font-size:20px"></i> <span style="">Withdraw</span></button></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " href="/myBets"><i class="fas fa-archive" style="margin-right:25px;font-size:20px"></i> Your bets</a></li>
+        <li style="border-bottom:#AB987A solid 1px !important;"><a class="w3-bar-item w3-button " style=""><i class="fas fa-question-circle" style="margin-right:25px !important;font-size:20px"></i> About TurfLive</a></li>
         <li style="border-bottom:#AB987A solid 1px !important;"><button class="w3-bar-item w3-button endSess"  ><i class="fas fa-sign-out-alt" style="margin-right:25px;font-size:20px"></i> Quit</button></li>
 
       </ul>
@@ -262,9 +262,9 @@
 
 
   <div class="row">
-    <div class="col-12 col-sm-12 col-md-12" style="margin-top:0;margin-bottom: 0;;padding:0;overflow-y:hidden !important;overflow-x:scroll;display:flex">
+    <div class="col-12 col-sm-12 col-md-12 nextRacesListContainer" style="margin-top:0;margin-bottom: 0;;padding:0;overflow-y:hidden !important;overflow-x:scroll;display:flex">
 
-        <ul style="list-style:none;display:flex;margin:0;padding:28px 0 23px 0;">
+        <ul  style="list-style:none;display:flex;margin:0;padding:28px 0 23px 0;">
 
           <% var ri=0%>
           <%for (var i=0;i<arrayNextRaces.length;i++){%>
@@ -272,10 +272,11 @@
               <%if(liveRaceId[a]==arrayNextRaces[i].idGara){%>
 
                 <%if(arrayNextRaces[i].idGara==raceId){%>
-                 <li class="nextRace0 nextRaceS" style="">
+
+                 <li class="nextRace nextRace0 nextRaceS elem<%=i+ri+1%>" style="">
 
                 <%}else{%>
-                  <li class="nextRace0" style="">
+                  <li class="nextRace nextRace0 elem<%=i+ri+1%>" style="">
                 <%}%>
 
 
@@ -291,13 +292,16 @@
             <%}%>
               <%for (var i=0;i<arrayNextRaces.length;i++){%>
                 <%if(arrayNextRaces[i].idGara==raceId){%>
-                 <li class="nextRace nextRaceS" style="">
+
+                    <li class="nextRace nextRaceS elem<%=i+1+ri%>" style="">
+
+
                 <%}else{%>
-                  <li class="nextRace" style="">
+                  <li class="nextRace elem<%=i+1+ri%>" style="">
                 <%}%>
 
+                  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1+ri%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a>
 
-                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1+ri%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a>
                 <div class="liveTag<%=arrayNextRaces[i].idGara%> liveTag" style="display:none">
                   LIVE
                 </div>
@@ -475,10 +479,10 @@
                   <td>
                     <%if(betMoneyOnHorse!=null){%>
                       <div class="betButton<%=betMoneyOnHorse[i].name%>">
-                      <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%> betButton<%=betMoneyOnHorse[i].name%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                      <button type="button" class="btn btn-primary betButton <%=betMoneyOnHorse[i].name%> <%= raceId%> betButton<%=betMoneyOnHorse[i].name%> betButton<%= raceId%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
                     </div>
                     <%}else{%>
-                      <button type="button" class="btn btn-primary betButton <%=jsonDataFirstLiveMatch[i].name%> <%= raceId%>" onclick="betting('<%=jsonDataFirstLiveMatch[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;" disabled>BET</button>
+                      <button type="button" class="btn btn-primary betButton <%=jsonDataFirstLiveMatch[i].name%> <%= raceId%> betButton<%= raceId%>" onclick="betting('<%=jsonDataFirstLiveMatch[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;" disabled>BET</button>
 
                     <%}%>
 
@@ -559,10 +563,10 @@
                       <td>
                         <%if(betMoneyOnHorse!=null){%>
                           <div class="betButton<%=betMoneyOnHorse[i].name%>">
-                          <button type="button" class="btn btn-primary betButton  <%=betMoneyOnHorse[i].name%> <%= raceId%> " onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
+                          <button type="button" class="btn btn-primary betButton  <%=betMoneyOnHorse[i].name%> <%= raceId%> betButton<%= raceId%>" onclick="betting('<%=betMoneyOnHorse[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;">BET</button>
                         </div>
                         <%}else{%>
-                          <button type="button" class="btn btn-primary betButton <%=jsonDataFirstLiveMatch[i].name%> <%= raceId%>" onclick="betting('<%=jsonDataFirstLiveMatch[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;" disabled>BET</button>
+                          <button type="button" class="btn btn-primary betButton <%=jsonDataFirstLiveMatch[i].name%> <%= raceId%> betButton<%= raceId%>" onclick="betting('<%=jsonDataFirstLiveMatch[i].name%>', '<%= raceId%>',this)" style="margin:0;margin-left:35px;margin-top:10px;" disabled>BET</button>
 
                         <%}%>
 

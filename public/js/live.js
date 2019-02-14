@@ -42,7 +42,28 @@ ws.onmessage = function (ev) {
 }
 
 $( document ).ready(function() {
+  //        nextRaces scrollling left/right
 
+    if($('.nextRace').length>6){
+      if($('.elem5').hasClass('nextRaceS')){
+        $('.nextRacesListContainer').animate({
+          scrollLeft: "+=30px"
+        }, 1);
+      }else if($('.elem6').hasClass('nextRaceS')){
+        $('.nextRacesListContainer').animate({
+          scrollLeft: "+=60px"
+        }, 1);
+      }else if($('.elem7').hasClass('nextRaceS')){
+        $('.nextRacesListContainer').animate({
+          scrollLeft: "+=155px"
+        }, 1);
+      }else if($('.elem8').hasClass('nextRaceS')){
+        $('.nextRacesListContainer').animate({
+          scrollLeft: "+=185px"
+        }, 1);
+      }
+    }
+      ////          end
 
   $('.Deposit, .Withdraw').click(function(){
     $('#login').css('display','block');
@@ -243,10 +264,14 @@ function betting(horse,raceId,button){
     //$('#mySidebar').css('display','block');
     //$('#removeSticky').removeClass('sticky-top');
   }else{
+
+
     if($('.stakeInsered').val()==''){
       alert('Insert stake');
     }else if(parseFloat($('.moneyUser').text())<parseFloat($('.stakeInsered').val())){
       alert("You haven't anought money to bet on this horse ");
+    }else if($('.betButton'+raceId).prop('disabled',true)){
+      alert('Race not started yet');
     }else{
       var currentdate = new Date();
       var classi=$(button).attr('class').split(' ');
@@ -288,6 +313,9 @@ function betting(horse,raceId,button){
 
       });
     }
+
+
+
   }
 }
 
