@@ -206,13 +206,16 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
 .liveTag{
   font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   position:relative;
-  top:-80px;
+  top:-27px;
   left:0px;
   color:red;
   border:red solid 1px;
   border-radius:5px;font-size:12px;
   text-align: center;
-  padding:3px 6px 3px 6px
+  padding:2px 3px 2px 3px;
+  height:22px;
+  width:45px;
+  margin-left:8px;
 }
 .nextRaceS{
   background:#42ab09 !important;
@@ -278,4 +281,51 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
 }
 .valid{
   color:green;
+}
+.lineFinished{
+  background: red
+}
+.number{
+  font-size:12px;
+  position:relative;
+  top:3px;
+  left:5px
+}
+.circle{
+  position:relative;
+  top:3px
+}
+.rowDown{
+  position:relative;
+  top:1px;
+  left:0;
+  border-right:2px grey solid;
+  width:10px;
+  height:15px;
+}
+
+.imHere{
+  border:2px solid #30415d !important;
+  border-radius: 10px;
+  height:65px;
+}
+
+.nextRaceL{
+  margin:5px;
+  float:left;
+  border-radius:6px;
+  background:#42ab09 !important;
+  border:none !important;
+  color:white;
+  padding: 6px 6px 10px 6px;
+  width:50px;
+  height:50px;
+  text-align:center;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+a{
+  text-decoration: none !important;
+  color:white;
 }

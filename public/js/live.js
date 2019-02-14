@@ -416,12 +416,12 @@ function startAnimationRaceLive(){
   //nextRace0
   $('.liveTag').animate({
       opacity: 1
-  }, 500,function(){
+  }, 200,function(){
 
     //$('.nextRace0').css('display','block');
     $('.liveTag').animate({
         opacity: 0.5
-    }, 500,function(){
+    }, 200,function(){
     //  $('.nextRace0').css('display','none');
 
     });
@@ -430,4 +430,4 @@ function startAnimationRaceLive(){
 
 window.setInterval(function(){
   startAnimationRaceLive();
-}, 1400);
+}, 200);

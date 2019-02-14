@@ -18,6 +18,8 @@ exports.RaceLiveOnChange = function (wss){
 
       if(next.fullDocument!=undefined && next.fullDocument.status == 'Ended'){
         wss.broadcast(JSON.stringify({event:'raceEnded',idRace:next.fullDocument.raceId}))
+
+        loadInfoToDbAbRaceEnded(next.fullDocument);
       }else if(next.fullDocument!=undefined && next.fullDocument.status == 'Active'){
         wss.broadcast(JSON.stringify({event:'raceStart',idRace:next.fullDocument.raceId}))
       }
@@ -80,7 +82,9 @@ function loadFirstLiveMatchToDb(race,id){
     dbo.collection("RaceLive").findOne({raceId:id}, function(err, result) {
       if (err) throw err;
       db.close();
-      if(result==null){
+        console.log('asdasdasdhasjhdfasjdh')
+        console.log(result)
+      if(result==undefined){
         var obj={
           raceId:id,
           totalBank:0,
@@ -95,7 +99,8 @@ function loadFirstLiveMatchToDb(race,id){
         for(var horse in race.Horses){
           var info={
             name:horse,
-            betMoneyTotal:'0',
+            positionHorse:0,
+            betMoneyTotal:0,
             horseName:race.Horses[horse].horse,
             steccato:race.Horses[horse].steccato,
             draw_label:race.Horses[horse].draw_label,
@@ -103,7 +108,8 @@ function loadFirstLiveMatchToDb(race,id){
             jockey:race.Horses[horse].jockey,
             trainer:race.Horses[horse].trainer,
             age:race.Horses[horse].age,
-            weight:race.Horses[horse].weight
+            weight:race.Horses[horse].weight,
+
           }
           obj.horses.push(info);
         }
@@ -144,4 +150,51 @@ function getNameOfImage(horse,horses){
   finalString+='.png';
   //console.log(finalString);
   return finalString;
+}
+
+
+
+
+function loadInfoToDbAbRaceEnded(fullDocument){
+
+  var query=[
+            {
+              '$match': {
+                'raceId': fullDocument.raceId
+              }
+            }, {
+              '$unwind': {
+                'path': '$horses'
+              }
+            }, {
+              '$sort': {
+                'position': -1
+              }
+            }
+          ]
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("TurfBit");
+      dbo.collection("RaceLive").aggregate(query).toArray( function(err, result) {
+        if (err) throw err;
+        db.close();
+        console.log(result)
+        var obj={
+          raceId:fullDocument.raceId,
+          country:fullDocument.country,
+          racecourse:fullDocument.stadium,
+          arrayHorses:result
+        }
+        MongoClient.connect(url, function(err, db) {
+          if (err) throw err;
+          var dbo = db.db("TurfBit");
+          dbo.collection("finishedRace").insertOne(obj, function(err, result) {
+            if (err) throw err;
+            db.close();
+            //wss()
+          })
+        })
+      })
+    })
+
 }

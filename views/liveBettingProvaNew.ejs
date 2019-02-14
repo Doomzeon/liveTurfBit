@@ -267,22 +267,47 @@
         <ul  style="list-style:none;display:flex;margin:0;padding:28px 0 23px 0;">
 
           <% var ri=0%>
+
+          <%for (var i=0;i<arrayNextRaces.length;i++){%>
+            <%for(var a=0;a<=finishedRaceId.length;a++){%>
+
+              <%if(finishedRaceId[a]==arrayNextRaces[i].idGara){%>
+
+                <%if(arrayNextRaces[i].idGara==raceId){%>
+
+                 <li class="imHere  elem<%=i+ri+1%>" style="">
+
+                <%}else{%>
+                  <li class=" elem<%=i+ri+1%>" style="">
+                <%}%>
+
+
+                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class="nextRace <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;background:#9C1006!important"><span style="font-size:14px"><%if(ri>=1){%><%=i+1+ri%><%}else if(ri==0){%><%=i+1%><%}%></span><br><span style="position:relative;top:-2px;font-size:11px"><%=arrayNextRaces[i].ora%></span></a>
+
+
+              </li>
+              <% arrayNextRaces.splice(i,1)%>
+              <%ri+=1%>
+              <%}%>
+
+            <%}%>
+          <%}%>
           <%for (var i=0;i<arrayNextRaces.length;i++){%>
             <%for (var a=0;a<liveRaceId.length;a++){%>
               <%if(liveRaceId[a]==arrayNextRaces[i].idGara){%>
 
                 <%if(arrayNextRaces[i].idGara==raceId){%>
 
-                 <li class="nextRace nextRace0 nextRaceS elem<%=i+ri+1%>" style="">
+                 <li class=" elem<%=i+ri+1%> imHere" style="">
 
                 <%}else{%>
-                  <li class="nextRace nextRace0 elem<%=i+ri+1%>" style="">
+                  <li class=" elem<%=i+ri+1%>" style="">
                 <%}%>
 
 
-                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%if(ri>=1){%><%=i+1+ri%><%}else if(ri==0){%><%=i+1%><%}%></span><br><span style="position:relative;top:-4px;font-size:11px"><%=arrayNextRaces[i].ora%></span></a>
+                <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1"  class="nextRaceL <%=arrayNextRaces[i].idGara%>" style="font-size: 10px;"><span style="font-size:14px"><%if(ri>=1){%><%=i+1+ri%><%}else if(ri==0){%><%=i+1%><%}%></span><br><span style="position:relative;top:-2px;font-size:11px"><%=arrayNextRaces[i].ora%></span></a>
                 <div class="liveTag<%=arrayNextRaces[i].idGara%> liveTag">
-                  LIVE
+                <span style="position:relative;top:-57px">  LIVE</span>
                 </div>
               </li>
               <% arrayNextRaces.splice(i,1)%>
@@ -293,14 +318,14 @@
               <%for (var i=0;i<arrayNextRaces.length;i++){%>
                 <%if(arrayNextRaces[i].idGara==raceId){%>
 
-                    <li class="nextRace nextRaceS elem<%=i+1+ri%>" style="">
+                    <li class="imHere   elem<%=i+1+ri%> " style="">
 
 
                 <%}else{%>
-                  <li class="nextRace elem<%=i+1+ri%>" style="">
+                  <li class=" elem<%=i+1+ri%>" style="">
                 <%}%>
 
-                  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class=" <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1+ri%></span><br><span style="position:relative;top:-4px;"><%=arrayNextRaces[i].ora%></span></a>
+                  <a href="/liveBetting?stad=<%=stadium%>&arrayRaces=<%=arrayNextRaces[i].idGara%>&paramss=1" class="nextRace <%=arrayNextRaces[i].idGara%>" style="font-size: 11px;"><span style="font-size:14px"><%=i+1+ri%></span><br><span style="position:relative;top:-2px;"><%=arrayNextRaces[i].ora%></span></a>
 
                 <div class="liveTag<%=arrayNextRaces[i].idGara%> liveTag" style="display:none">
                   LIVE
@@ -406,7 +431,73 @@
               </tr>
             </thead>
             <tbody class="horsesTbody">
-        <%if(betMoneyOnHorse!=null){%>
+          <%if(jsonRaceEnded!=null){%>
+
+            <% for(var i=0;i<jsonRaceEnded.arrayHorses.length;i++){ %>
+                  <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse">
+                    <td style="width:13%;">
+                      <div style="margin-left:5px;">
+                      <div class="row" >
+                        <div class="col-sm-12 col-12 col-xm-12" style="padding-right:0"><p style="margin:0;"><%= jsonRaceEnded.arrayHorses[i].horses.steccato%> <%= jsonRaceEnded.arrayHorses[i].horses.draw_label%></p></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 col-12 col-xm-12"><img src="/img/<%= jsonRaceEnded.arrayHorses[i].horses.img%>" style="width:100%"></div>
+                      </div>
+                    </div>
+                    </td>
+
+                    <td style="width:65%">
+
+                      <div class="row">
+                        <div class="col-12 col-sm-12 col-xm-12"><b class="horseNameUs<%=jsonRaceEnded.arrayHorses[i].horses.name%>"><%=jsonRaceEnded.arrayHorses[i].horses.horseName%> <i class="fa fa-star star<%=jsonRaceEnded.arrayHorses[i].horses.name%>"  aria-hidden="true" style=""></i></b></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-5 col-sm-5 col-xm-5" style="font-size:8px;padding-right:0;">
+
+
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-xm-12" style="font-size:8px">T:<%=jsonRaceEnded.arrayHorses[i].horses.trainer%></div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-xm-12" style="font-size:8px">J:<%=jsonRaceEnded.arrayHorses[i].horses.jockey%></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-xm-12" style="font-size:8px"> age: <%=jsonRaceEnded.arrayHorses[i].horses.age%> w: <%=jsonRaceEnded.arrayHorses[i].horses.weight%></div>
+                          </div>
+
+                        </div>
+                          <div class="col-7 col-sm-7 col-xm-7" style="padding:0">
+
+
+
+                                      <div class="moneyTot_<%=jsonRaceEnded.arrayHorses[i].horses.name%> moneyTot" style="position:relative;top:-12px;left:35%"><%= jsonRaceEnded.arrayHorses[i].horses.betMoneyTotal%> $</div>
+                                      <div class="lineDiv" style="position: relative;top:-10px;left:-7px;background:#f7f7f7;width:140px;height:12px;padding:0;margin-right: 30px;border:1px solid #e5e3e3;border-radius:10px">
+                                        <div class="lineFinished line_<%=jsonRaceEnded.arrayHorses[i].horses.name%>" style="width:<%= parseInt((parseInt(jsonRaceEnded.arrayHorses[i].horses.betMoneyTotal)/totalBank*100))*138/100 %>px ;"></div>
+                                      </div>
+
+
+
+                          </div>
+                      </div>
+
+
+
+                    </td>
+                    <td>
+
+                      <div style="margin-left:30px">
+                        <div class="number" style=""><%=i+1%></div>
+                        <div class="circle" style=""><i class="far fa-circle" style="color:red;font-size:18px"></i></div>
+                        <div class="rowDown" style=""></div>
+                      </div>
+                     </td>
+                  </tr>
+              <% } %>
+
+
+
+        <%}else if(betMoneyOnHorse!=null){%>
           <% for(var i=0;i<betMoneyOnHorse.length;i++){ %>
                 <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse-<%=betMoneyOnHorse[i].name%>">
                   <td style="width:13%;">

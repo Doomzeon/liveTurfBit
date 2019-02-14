@@ -63,41 +63,48 @@ exports.doAllStuffAndGeneratePage=function(req,res){
 
 function checkRace(req,res,firstIdRaceGenerate){
   var liveRaceId
+  var finishedRaceId
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("TurfBit");
-    dbo.collection("RaceLive").findOne({raceId:firstIdRaceGenerate,status:"Active"}, function(err, result) {
+    dbo.collection("RaceLive").findOne({raceId:firstIdRaceGenerate}, function(err, result) {
       if (err) throw err;
       db.close();
 
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("TurfBit");
-        dbo.collection("RaceLive").find({country:'Great Britain',status:'Active'}).toArray(function(err, resu) {
+        dbo.collection("RaceLive").find({country:'Great Britain'}).toArray(function(err, resu) {
           if (err) throw err;
           db.close();
           if(resu[0]==undefined){
             liveRaceId=0
+            finishedRaceId=0
           }else{
             console.log('/////////wwwwwww')
             console.log(resu)
             console.log('/////////')
             liveRaceId=[]
+            finishedRaceId=[]
             for(var i=0;i<resu.length;i++){
-              liveRaceId.push(resu[i].raceId)
+              if(resu[i].status=='Active'){
+                liveRaceId.push(resu[i].raceId)
+              }else{
+                finishedRaceId.push(resu[i].raceId)
+              }
             }
           }
           if(result==undefined || result==""){
             console.log('no races')
 
-            switchCasesRender(req,res,firstIdRaceGenerate,null,liveRaceId);
+            switchCasesRender(req,res,firstIdRaceGenerate,null,liveRaceId,finishedRaceId);
 
             console.log('raceID:')
 
           }else{
             console.log(' Found race');
 
-            switchCasesRender(req,res,firstIdRaceGenerate,result,liveRaceId);
+            switchCasesRender(req,res,firstIdRaceGenerate,result,liveRaceId,finishedRaceId);
 
         }
         });
@@ -108,7 +115,7 @@ function checkRace(req,res,firstIdRaceGenerate){
 }
 
 
-function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveRaceId){
+function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveRaceId,finishedRaceId){
 
 
   if(resultQueryRaceLive!=null){
@@ -117,7 +124,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
 
     if(req.session.mail==undefined&&req.cookies.mail==undefined){
 
-      renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,"",0,liveRaceId)
+      renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,"",0,liveRaceId,finishedRaceId)
 
     }else if(req.cookies.mail!=undefined){
       query=[
@@ -138,7 +145,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
         dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
           if (err) throw err;
           db.close();
-          renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.cookies.mail,result[0].money,liveRaceId)
+          renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.cookies.mail,result[0].money,liveRaceId,finishedRaceId)
 
         })
       })
@@ -162,7 +169,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
           dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
             if (err) throw err;
             db.close();
-            renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.session.mail,result[0].money,liveRaceId)
+            renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.session.mail,result[0].money,liveRaceId,finishedRaceId)
           })
         })
     }
@@ -172,7 +179,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
     if(req.session.mail==undefined&&req.cookies.mail==undefined){
 
 
-      renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,"",0,liveRaceId)
+      renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,"",0,liveRaceId,finishedRaceId)
     }else if(req.cookies.mail!=undefined){
       query=[
       {
@@ -192,7 +199,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
         dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
           if (err) throw err;
           db.close();
-          renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.cookies.mail,result[0].money,liveRaceId)
+          renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.cookies.mail,result[0].money,liveRaceId,finishedRaceId)
 
         })
       })
@@ -216,7 +223,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
           dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
             if (err) throw err;
             db.close();
-            renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.session.mail,result[0].money,liveRaceId)
+            renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,req.session.mail,result[0].money,liveRaceId,finishedRaceId)
           })
         })
     }
@@ -225,7 +232,7 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
 
 
 
-function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,liveRaceId){
+function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,liveRaceId,finishedRaceId){
 
   query=[
   {
@@ -308,31 +315,66 @@ function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,l
               jsonFavorites:null,
               sizeJsonFav:sizeFav,
               arrayStelleCavalli:null,
-              liveRaceId:liveRaceId
+              liveRaceId:liveRaceId,
+              jsonRaceEnded:null,
+              finishedRaceId:finishedRaceId
           })
 
         })
       })
 
       }else{
+        MongoClient.connect(url, function(err, db) {
+          if (err) throw err;
+          var dbo = db.db("TurfBit");
+          dbo.collection("finishedRace").findOne({raceId:firstIdRaceGenerate}, function(err, result) {
+            if (err) throw err;
+            db.close();
+            if(result!=undefined){
+              res.render('liveBettingProvaNew', {
+                jsonDataFirstLiveMatch:null,
+                username:mail,
+                totalBank:resultQueryRaceLive.totalBank,
+                betMoneyOnHorse:resultQueryRaceLive.horses,
+                raceId:firstIdRaceGenerate,
+                country:resultQueryRaceLive.country,
+                stadium:resultQueryRaceLive.stadium,
+                time:resultQueryRaceLive.time,
+                arrayNextRaces:idGaraIpo,
+                money:money,
+                comment:resultQueryRaceLive.comment,
+                jsonFavorites:favourites,
+                sizeJsonFav:sizeFav,
+                arrayStelleCavalli:favourites,
+                liveRaceId:liveRaceId,
+                jsonRaceEnded:result,
+                finishedRaceId:finishedRaceId
+              });
+            }else{
+              res.render('liveBettingProvaNew', {
+                jsonDataFirstLiveMatch:null,
+                username:mail,
+                totalBank:resultQueryRaceLive.totalBank,
+                betMoneyOnHorse:resultQueryRaceLive.horses,
+                raceId:firstIdRaceGenerate,
+                country:resultQueryRaceLive.country,
+                stadium:resultQueryRaceLive.stadium,
+                time:resultQueryRaceLive.time,
+                arrayNextRaces:idGaraIpo,
+                money:money,
+                comment:resultQueryRaceLive.comment,
+                jsonFavorites:favourites,
+                sizeJsonFav:sizeFav,
+                arrayStelleCavalli:favourites,
+                liveRaceId:liveRaceId,
+                jsonRaceEnded:null,
+                finishedRaceId:finishedRaceId
+              });
+            }
 
-        res.render('liveBettingProvaNew', {
-          jsonDataFirstLiveMatch:null,
-          username:mail,
-          totalBank:resultQueryRaceLive.totalBank,
-          betMoneyOnHorse:resultQueryRaceLive.horses,
-          raceId:firstIdRaceGenerate,
-          country:resultQueryRaceLive.country,
-          stadium:resultQueryRaceLive.stadium,
-          time:resultQueryRaceLive.time,
-          arrayNextRaces:idGaraIpo,
-          money:money,
-          comment:resultQueryRaceLive.comment,
-          jsonFavorites:favourites,
-          sizeJsonFav:sizeFav,
-          arrayStelleCavalli:favourites,
-          liveRaceId:liveRaceId
-        });
+          })
+        })
+
 
       }
     })

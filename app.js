@@ -278,7 +278,7 @@ app.listen(8080, function () {
       //console.log(res)
       console.log('///////')
       jsonDataMatches=res;
-      loadFirstLiveMatchToDb(jsonDataMatches.races['GB-20181026-0'],'GB-20181026-0')
+    //  loadFirstLiveMatchToDb(jsonDataMatches.races['GB-20181026-0'],'GB-20181026-0')
     });
   });
 
@@ -382,55 +382,6 @@ function getUserInformationLoginAndSentFinalPage(obj,req,res){
   });
 }
 
-function loadFirstLiveMatchToDb(race,id){
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("TurfBit");
-    dbo.collection("RaceLive").findOne({raceId:id}, function(err, result) {
-      if (err) throw err;
-      db.close();
-      if(result==null){
-        var obj={
-          raceId:id,
-          totalBank:0,
-          status:'Active',
-          comment:race.Data.tip,
-          stadium:race.Data.racecourse,
-          time:race.Data.time,
-          horses:[]
-        };
-
-        for(var horse in race.Horses){
-          var info={
-            name:horse,
-            betMoneyTotal:'0',
-            horseName:race.Horses[horse].horse,
-            steccato:race.Horses[horse].steccato,
-            draw_label:race.Horses[horse].draw_label,
-            img:getNameOfImage(horse,race.Horses),
-            jockey:race.Horses[horse].jockey,
-            trainer:race.Horses[horse].trainer,
-            age:race.Horses[horse].age,
-            weight:race.Horses[horse].weight
-          }
-          obj.horses.push(info);
-        }
-        MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          var dbo = db.db("TurfBit");
-          dbo.collection("RaceLive").insertOne(obj, function(err, result) {
-            if (err) throw err;
-            db.close();
-            console.log('First Live match Added to DB');
-          });
-        });
-      }else{
-        console.log('Match already exists');
-      }
-    });
-  });
-
-}
 
 function getNameOfImage(horse,horses){
   var horseName=horse;
