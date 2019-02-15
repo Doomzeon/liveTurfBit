@@ -550,13 +550,23 @@ function changeTotalBankRace(raceId,moneyHorseInserted,moneyHorseTot,wss,horse){
           MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("TurfBit");
-            dbo.collection("RaceLive").find({}).toArray( function(err, res) {
+            dbo.collection("RaceLive").find({raceId:raceId}).toArray( function(err, res) {
               if (err) throw err;
               db.close();
-
-              //console.log(res);
+              console.log();
+              console.log();
+              console.log();
+              console.log();
+              console.log();
+              console.log();
+              console.log(res);
+              console.log();
+              console.log();
+              console.log();
+              console.log();
+              console.log();
               var horses=res[0].horses;
-              //console.log(horses)
+              console.log(horses)
               var horsesStat=[];
               for(var i in horses){
                 console.log(horses[i]);
