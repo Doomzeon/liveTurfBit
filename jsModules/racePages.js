@@ -334,7 +334,7 @@ function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,l
               res.render('liveBettingProvaNew', {
                 jsonDataFirstLiveMatch:null,
                 username:mail,
-                totalBank:resultQueryRaceLive.totalBank,
+                totalBank:result.arrayHorses[0].totalBank,
                 betMoneyOnHorse:resultQueryRaceLive.horses,
                 raceId:firstIdRaceGenerate,
                 country:resultQueryRaceLive.country,

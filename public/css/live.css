@@ -283,7 +283,11 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   color:green;
 }
 .lineFinished{
-  background: red
+  width: 0;
+  height: 6px;
+  border-bottom: 10px solid #9C1006;
+  position: relative;
+  border-radius:10px
 }
 .number{
   font-size:12px;
@@ -324,7 +328,11 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
-
+button:disabled,
+button[disabled]{
+  background-color: #7c8fad !important;
+  border: none;
+}
 a{
   text-decoration: none !important;
   color:white;

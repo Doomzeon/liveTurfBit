@@ -270,7 +270,7 @@ function betting(horse,raceId,button){
       alert('Insert stake');
     }else if(parseFloat($('.moneyUser').text())<parseFloat($('.stakeInsered').val())){
       alert("You haven't anought money to bet on this horse ");
-    }else if($('.betButton'+raceId).prop('disabled',true)){
+    }else if($('.betButton'+raceId).prop('disabled')==true){
       alert('Race not started yet');
     }else{
       var currentdate = new Date();
