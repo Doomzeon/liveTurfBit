@@ -174,8 +174,11 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/liveBetting',(req,res)=>{
-  racePages.doAllStuffAndGeneratePage(req,res);
-    //  liveBetting.live(req,res,jsonDataMatches)
+  try {
+    racePages.doAllStuffAndGeneratePage(req,res);
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 app.post('/endSession',(req,res)=>{

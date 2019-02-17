@@ -42,7 +42,10 @@ exports.doAllStuffAndGeneratePage=function(req,res){
           }
         ]
         MongoClient.connect(url, function(err, db) {
-                    if (err) throw err;
+          if (err){
+            res.status(500).send('Something broke!');
+            throw err;
+          }
                     var dbo = db.db("TurfBit");
 
                     dbo.collection("StadiumsCountry").aggregate(query).toArray(function(err, resu) {
@@ -68,14 +71,20 @@ function checkRace(req,res,firstIdRaceGenerate){
     if (err) throw err;
     var dbo = db.db("TurfBit");
     dbo.collection("RaceLive").findOne({raceId:firstIdRaceGenerate}, function(err, result) {
-      if (err) throw err;
+      if (err){
+        res.status(500).send('Something broke!');
+        throw err;
+      }
       db.close();
 
       MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("TurfBit");
         dbo.collection("RaceLive").find({country:'Great Britain'}).toArray(function(err, resu) {
-          if (err) throw err;
+          if (err){
+            res.status(500).send('Something broke!');
+            throw err;
+          }
           db.close();
           if(resu[0]==undefined){
             liveRaceId=0
@@ -140,7 +149,10 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
       }
     ];
       MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
+        if (err){
+          res.status(500).send('Something broke!');
+          throw err;
+        }
         var dbo = db.db("TurfBit");
         dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
           if (err) throw err;
@@ -164,7 +176,10 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
         }
       ];
         MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
+          if (err){
+            res.status(500).send('Something broke!');
+            throw err;
+          }
           var dbo = db.db("TurfBit");
           dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
             if (err) throw err;
@@ -194,7 +209,10 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
       }
     ];
       MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
+        if (err){
+          res.status(500).send('Something broke!');
+          throw err;
+        }
         var dbo = db.db("TurfBit");
         dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
           if (err) throw err;
@@ -218,7 +236,10 @@ function switchCasesRender(req,res,firstIdRaceGenerate,resultQueryRaceLive,liveR
         }
       ];
         MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
+          if (err){
+            res.status(500).send('Something broke!');
+            throw err;
+          }
           var dbo = db.db("TurfBit");
           dbo.collection("Accounts").aggregate(query).toArray( function(err, result) {
             if (err) throw err;
@@ -242,142 +263,165 @@ function renderPage(req,res,resultQueryRaceLive,firstIdRaceGenerate,mail,money,l
   }
 ]
   MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
+    if (err){
+      res.status(500).send('Something broke!');
+      throw err;
+    }
     var dbo = db.db("TurfBit");
     dbo.collection("GreatBritain").aggregate(query).toArray( function(err, result) {
-      if (err) throw err;
+      if (err){
+        res.status(500).send('Something broke!');
+        throw err;
+      }
       db.close();
     //  console.log(result[0].races)
-      console.log('///////')
-      var arrayStadiumsInfo=tableStadiums.StadiumHours(result[0].races);
-      console.log(arrayStadiumsInfo)
-      var idGaraIpo;
-      for(var i=0;i<arrayStadiumsInfo.length;i++){
-        if(arrayStadiumsInfo[i].stadium==req.query.stad){
-          idGaraIpo=arrayStadiumsInfo[i].orari;
-          break;
+      console.log('aasdadas//////')
+      //var arrayStadiumsInfo= tableStadiums.StadiumHours(result[0].races);
+      tableStadiums.StadiumHours(result[0].races).then(function(arrayStadiumsInfo){
+
+
+
+        console.log( arrayStadiumsInfo)
+        var idGaraIpo;
+        for(var i=0;i<arrayStadiumsInfo.length;i++){
+          if(arrayStadiumsInfo[i].stadium==req.query.stad){
+            idGaraIpo=arrayStadiumsInfo[i].orari;
+            break;
+          }
         }
-      }
 
-      console.log('////////////')
-      console.log(idGaraIpo)
-      var favourites;
-      var sizeFav
+        console.log('////////////')
+        console.log(idGaraIpo)
+        var favourites;
+        var sizeFav
 
-      if(req.session.jsonFavorites==undefined){
-        favourites=null;
-      }else if(req.session.jsonFavorites!=undefined && req.session.jsonFavorites.gare[0].arrayHorses.length>0){
-        console.log('req.session.jsonFavorites')
-        console.log(req.session.jsonFavorites)
+        if(req.session.jsonFavorites==undefined){
+          favourites=null;
+        }else if(req.session.jsonFavorites!=undefined && req.session.jsonFavorites.gare[0].arrayHorses.length>0){
           console.log('req.session.jsonFavorites')
-        for(var i=0;i<req.session.jsonFavorites.gare.length;i++){
-          console.log('asd'+firstIdRaceGenerate)
-          if(req.session.jsonFavorites.gare[i].idRace==firstIdRaceGenerate){
-            favourites=req.session.jsonFavorites.gare[i].arrayHorses
-            sizeFav=req.session.jsonFavorites.gare[i].arrayHorses.length
+          console.log(req.session.jsonFavorites)
+            console.log('req.session.jsonFavorites')
+          for(var i=0;i<req.session.jsonFavorites.gare.length;i++){
+            console.log('asd'+firstIdRaceGenerate)
+            if(req.session.jsonFavorites.gare[i].idRace==firstIdRaceGenerate){
+              favourites=req.session.jsonFavorites.gare[i].arrayHorses
+              sizeFav=req.session.jsonFavorites.gare[i].arrayHorses.length
+            }
           }
         }
-      }
 
-      if(resultQueryRaceLive==null){
-        query=[
-        {
-          '$match': {
-            'country': 'Great Britain'
+        if(resultQueryRaceLive==null){
+          query=[
+          {
+            '$match': {
+              'country': 'Great Britain'
+            }
+          }, {
+            '$project': {
+              'races': '$races.'+firstIdRaceGenerate
+            }
           }
-        }, {
-          '$project': {
-            'races': '$races.'+firstIdRaceGenerate
-          }
-        }
-      ]
-      console.log('iddd'+firstIdRaceGenerate);
-        MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          var dbo = db.db("TurfBit");
-          dbo.collection("GreatBritain").aggregate(query).toArray( function(err, result) {
-            if (err) throw err;
-            db.close();
-          //  console.log(result[0].races)
-
-            res.render('liveBettingProvaNew', {
-              jsonDataFirstLiveMatch:liveTableHorse.tableElements(result[0].races),
-              username:mail,
-              totalBank:0,
-              betMoneyOnHorse:null,
-              raceId:firstIdRaceGenerate,
-              country:'Great Britain',
-              stadium:result[0].races.Data.racecourse,
-              time:result[0].races.Data.time,
-              arrayNextRaces:idGaraIpo,
-              money:money,
-              comment:result[0].races.Data.tip,
-              jsonFavorites:null,
-              sizeJsonFav:sizeFav,
-              arrayStelleCavalli:null,
-              liveRaceId:liveRaceId,
-              jsonRaceEnded:null,
-              finishedRaceId:finishedRaceId
-          })
-
-        })
-      })
-
-      }else{
-        MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          var dbo = db.db("TurfBit");
-          dbo.collection("finishedRace").findOne({raceId:firstIdRaceGenerate}, function(err, result) {
-            if (err) throw err;
-            db.close();
-            if(result!=undefined){
+        ]
+        console.log('iddd'+firstIdRaceGenerate);
+          MongoClient.connect(url, function(err, db) {
+            if (err){
+              res.status(500).send('Something broke!');
+              throw err;
+            }
+            var dbo = db.db("TurfBit");
+            dbo.collection("GreatBritain").aggregate(query).toArray( function(err, result) {
+              if (err){
+                res.status(500).send('Something broke!');
+                throw err;
+              }
+              db.close();
+            //  console.log(result[0].races)
+            liveTableHorse.tableElements(result[0].races).then(function(resultJson){
               res.render('liveBettingProvaNew', {
-                jsonDataFirstLiveMatch:null,
+                jsonDataFirstLiveMatch:resultJson,
                 username:mail,
-                totalBank:result.arrayHorses[0].totalBank,
-                betMoneyOnHorse:resultQueryRaceLive.horses,
+                totalBank:0,
+                betMoneyOnHorse:null,
                 raceId:firstIdRaceGenerate,
-                country:resultQueryRaceLive.country,
-                stadium:resultQueryRaceLive.stadium,
-                time:resultQueryRaceLive.time,
+                country:'Great Britain',
+                stadium:result[0].races.Data.racecourse,
+                time:result[0].races.Data.time,
                 arrayNextRaces:idGaraIpo,
                 money:money,
-                comment:resultQueryRaceLive.comment,
-                jsonFavorites:favourites,
+                comment:result[0].races.Data.tip,
+                jsonFavorites:null,
                 sizeJsonFav:sizeFav,
-                arrayStelleCavalli:favourites,
-                liveRaceId:liveRaceId,
-                jsonRaceEnded:result,
-                finishedRaceId:finishedRaceId
-              });
-            }else{
-              res.render('liveBettingProvaNew', {
-                jsonDataFirstLiveMatch:null,
-                username:mail,
-                totalBank:resultQueryRaceLive.totalBank,
-                betMoneyOnHorse:resultQueryRaceLive.horses,
-                raceId:firstIdRaceGenerate,
-                country:resultQueryRaceLive.country,
-                stadium:resultQueryRaceLive.stadium,
-                time:resultQueryRaceLive.time,
-                arrayNextRaces:idGaraIpo,
-                money:money,
-                comment:resultQueryRaceLive.comment,
-                jsonFavorites:favourites,
-                sizeJsonFav:sizeFav,
-                arrayStelleCavalli:favourites,
+                arrayStelleCavalli:null,
                 liveRaceId:liveRaceId,
                 jsonRaceEnded:null,
                 finishedRaceId:finishedRaceId
-              });
-            }
+            })
+            })
+
 
           })
         })
 
+        }else{
+          MongoClient.connect(url, function(err, db) {
+            if (err){
+              res.status(500).send('Something broke!');
+              throw err;
+            }
+            var dbo = db.db("TurfBit");
+            dbo.collection("finishedRace").findOne({raceId:firstIdRaceGenerate}, function(err, result) {
+              if (err) throw err;
+              db.close();
+              if(result!=undefined){
+                res.render('liveBettingProvaNew', {
+                  jsonDataFirstLiveMatch:null,
+                  username:mail,
+                  totalBank:result.arrayHorses[0].totalBank,
+                  betMoneyOnHorse:resultQueryRaceLive.horses,
+                  raceId:firstIdRaceGenerate,
+                  country:resultQueryRaceLive.country,
+                  stadium:resultQueryRaceLive.stadium,
+                  time:resultQueryRaceLive.time,
+                  arrayNextRaces:idGaraIpo,
+                  money:money,
+                  comment:resultQueryRaceLive.comment,
+                  jsonFavorites:favourites,
+                  sizeJsonFav:sizeFav,
+                  arrayStelleCavalli:favourites,
+                  liveRaceId:liveRaceId,
+                  jsonRaceEnded:result,
+                  finishedRaceId:finishedRaceId
+                });
+              }else{
+                res.render('liveBettingProvaNew', {
+                  jsonDataFirstLiveMatch:null,
+                  username:mail,
+                  totalBank:resultQueryRaceLive.totalBank,
+                  betMoneyOnHorse:resultQueryRaceLive.horses,
+                  raceId:firstIdRaceGenerate,
+                  country:resultQueryRaceLive.country,
+                  stadium:resultQueryRaceLive.stadium,
+                  time:resultQueryRaceLive.time,
+                  arrayNextRaces:idGaraIpo,
+                  money:money,
+                  comment:resultQueryRaceLive.comment,
+                  jsonFavorites:favourites,
+                  sizeJsonFav:sizeFav,
+                  arrayStelleCavalli:favourites,
+                  liveRaceId:liveRaceId,
+                  jsonRaceEnded:null,
+                  finishedRaceId:finishedRaceId
+                });
+              }
 
-      }
+            })
+          })
+
+
+        }
+      })
     })
-  })
+      })
+
 
 }
