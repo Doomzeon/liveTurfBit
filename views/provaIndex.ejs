@@ -154,14 +154,14 @@
       </div>
       </div>
 
-      <div class="" style="background:#AB987A;padding-top:6px"></div>
+      <!--<div class="" style="background:#AB987A;padding-top:6px"></div>-->
 <%}else{%>
   <button class="w3-bar-item w3-button " id="signIn" style="background:none;border:none;color:white;font-size:14px; position:absolute;right:1px;top:10px;"><i class="fas fa-key" style="font-size:20px;color:"></i> </button>
 
       </div>
       </div>
 
-      <div class="" style="background:#AB987A;padding-top:6px"></div>
+      <!--<div class="" style="background:#AB987A;padding-top:6px"></div>-->
       <div class="container-fluid " style="">
         <div class="row"  style="background-color:#30415d !important;height:50px;position:relative;padding:0 !important;">
 
@@ -173,7 +173,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-sm-12 col-md-12" style="background:#AB987A;padding-top:6px">
+          <div class="col-12 col-sm-12 col-md-12" style="background:#30415d;padding-top:6px">
 
           </div>
         </div>
@@ -196,12 +196,12 @@
 
             <div class="row" style="background:;color:black">
               <div class="col-12 col-sm-12 col-md-12" style="padding:0">
-                <ul style="list-style:none;padding:0">
+                <ul style="list-style:none;padding:0;margin:0;">
                   <%for(var a=0;a<stadiums[i].stadiums.length;a++){%>
                     <%if(a+1==stadiums.length){%>
-                      <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadiums[a].stadium%>&country=<%=stadiums[i].country%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadiums[a].stadium%></a></li>
+                      <li style="border-bottom:#edeef0 solid 0.1px !important;padding:13px;box-shadow:0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8 "><a href="/liveBetting?stad=<%=stadiums[i].stadiums[a].stadium%>&country=<%=stadiums[i].country%>&paramss=2" style="color:#656565"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadiums[a].stadium%></a></li>
                     <%}else{%>
-                      <li style="border-bottom:grey solid 0.1px !important;padding:13px "><a href="/liveBetting?stad=<%=stadiums[i].stadiums[a].stadium%>&country=<%=stadiums[i].country%>&paramss=2"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadiums[a].stadium%></a></li>
+                      <li style="border-bottom:#edeef0 solid 0.1px !important;padding:13px ;box-shadow:0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8"><a href="/liveBetting?stad=<%=stadiums[i].stadiums[a].stadium%>&country=<%=stadiums[i].country%>&paramss=2" style="color:#656565"> <i class="fas fa-circle" style="color:#3CC47C;font-size:6px;padding:5px;position:relative;bottom:2px"></i><%=stadiums[i].stadiums[a].stadium%></a></li>
                     <%}%>
                   <%}%>
                 </ul>

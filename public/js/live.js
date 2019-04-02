@@ -34,6 +34,7 @@ ws.onmessage = function (ev) {
     $('.betButton').prop("disabled",true);
 
     $('.liveTag'+d.idRace).css('display','none');
+    
   }else if(d.event=='raceStart'){
     $('.betButton').prop("disabled",false);
 

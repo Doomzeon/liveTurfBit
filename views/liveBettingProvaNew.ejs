@@ -185,7 +185,6 @@
 
       </div>
       </div>
-      <div class="" style="background:#AB987A;padding-top:6px"></div>
       <div class="container-fluid " style="">
 
 
@@ -211,7 +210,6 @@
 
       </div>
       </div>
-      <div class=""style="background:#AB987A;padding-top:6px"></div>
       <div class="container-fluid " style="">
         <div class="row"  style="background-color:#30415d !important;height:50px;position:relative;padding:0 !important;">
 
@@ -416,25 +414,25 @@
         <!-- table with horses -->
 
         <div class="tableHorses" style="margin-top: 0">
-          <table class="table tableHorsesLive" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-            <thead>
+          <table class="table tableHorsesLive" style="box-shadow:0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8 ">
+            <thead style="box-shadow:0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8 ">
               <tr >
                 <th style="text-align: center;">#</th>
                 <th ><span style="margin-left:10px">Horse</span>  <span style="margin-left:100px">Stake</span></th>
 
                 <th style="padding:0px;padding-right:3px">
                   <div class="form-check" style="margin-bottom: 8px;">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <!--<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
                      <span style="font-size:10px;position:relative;top:3px">Confirm bet</span>
                   </div>
                 </th>
               </tr>
             </thead>
-            <tbody class="horsesTbody">
+            <tbody class="horsesTbody" style="box-shadow:0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8 ">
           <%if(jsonRaceEnded!=null){%>
 
             <% for(var i=0;i<jsonRaceEnded.arrayHorses.length;i++){ %>
-                  <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse">
+                  <tr style="box-shadow:0 1px 4px 0 #d7d8db, 0 0 0 1px #e3e4e8 " class="rowHorse">
                     <td style="width:13%;">
                       <div style="margin-left:5px;">
                       <div class="row" >
@@ -499,7 +497,7 @@
 
         <%}else if(betMoneyOnHorse!=null){%>
           <% for(var i=0;i<betMoneyOnHorse.length;i++){ %>
-                <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse-<%=betMoneyOnHorse[i].name%>">
+                <tr style="box-shadow:0 1px 4px 0 #d7d8db, 0 0 0 1px #e3e4e8" class="rowHorse-<%=betMoneyOnHorse[i].name%>">
                   <td style="width:13%;">
                     <div style="margin-left:5px;">
                     <div class="row" >
@@ -583,7 +581,7 @@
             <%}else{%>
 
               <% for(var i=0;i<jsonDataFirstLiveMatch.length;i++){ %>
-                    <tr style="border-top:solid #d9d9d9 1px;" class="rowHorse-<%=jsonDataFirstLiveMatch[i].name%>">
+                    <tr style="box-shadow:0 1px 4px 0 #d7d8db, 0 0 0 1px #e3e4e8" class="rowHorse-<%=jsonDataFirstLiveMatch[i].name%>">
                       <td style="width:13%;margin-left:40px;">
                         <div class="row" style="">
                           <div class="col-sm-12 col-12 col-xm-12" style="padding-right:0"><p style="margin:0;"><%= jsonDataFirstLiveMatch[i].steccato%> <%= jsonDataFirstLiveMatch[i].draw_label%></p></div>

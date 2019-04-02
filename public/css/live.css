@@ -206,7 +206,7 @@ box-shadow: 7px -4px 300px 6px rgba(0,0,0,0.75);
 .liveTag{
   font-family: Roboto,-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   position:relative;
-  top:-27px;
+  top:-25px;
   left:0px;
   color:red;
   border:red solid 1px;
